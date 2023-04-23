@@ -15,6 +15,10 @@ clock = pygame.time.Clock()
 def main():
     run = True
 
+    def update_screen():
+        screen.fill("darkslategray")
+        pygame.display.update()
+
     while run:
         clock.tick(FPS)
 
@@ -22,6 +26,7 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
+        update_screen()
 
     pygame.quit()
 
