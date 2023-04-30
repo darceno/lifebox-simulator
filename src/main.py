@@ -18,12 +18,14 @@ class ORGANISM:
         self.y = random.randint(20, HEIGHT_SIZE-20)
         self.size = size
         self.color = color
+        self.decision = None
 
     def draw(self):
         pygame.draw.circle(screen, self.color, (self.x, self.y), self.size)
 
     def move_decision(self):
         self.decision = random.randrange(8) # 0/right - 1/left - 2/down - 3/up - 4/right-down - 5/right-up - 6/left-down - 7/left-up
+        self.decision_delay = random.randint(5, 60)
 
     def move(self):
         if self.decision == 0 and self.x < WIDTH_SIZE-self.size: #right
@@ -54,8 +56,11 @@ def main():
     run = True
     organisms = []
     population = 10
+    frame_count = 0
 
     def update_screen():
+        nonlocal frame_count
+        frame_count += 1
 
         if len(organisms) == 0:
             for i in range(population):
@@ -64,9 +69,13 @@ def main():
 
         for organism in organisms:
             organism.draw()
-            organism.move_decision()
             organism.move()
+            if frame_count > organism.decision_delay:
+                organism.move_decision()
 
+        if frame_count > organism.decision_delay:
+            frame_count = 0
+        
         pygame.display.update()
 
     while run:
