@@ -3,6 +3,7 @@ import pygame, random
 # Simulaiton settings
 WIDTH_SIZE, HEIGHT_SIZE = 1000, 500
 FPS = 60
+SPEED = 2
 
 # Pygame setup
 pygame.init()
@@ -19,7 +20,34 @@ class ORGANISM:
         self.color = color
 
     def draw(self):
-        pygame.draw.circle(screen, self.color, (self.x, self.y), self.size) 
+        pygame.draw.circle(screen, self.color, (self.x, self.y), self.size)
+
+    def move_decision(self):
+        self.decision = random.randrange(8) # 0/right - 1/left - 2/down - 3/up - 4/right-down - 5/right-up - 6/left-down - 7/left-up
+
+    def move(self):
+        if self.decision == 0 and self.x < WIDTH_SIZE-self.size: #right
+            self.x += SPEED
+        elif self.decision == 1 and self.x > 20: #left
+            self.x -= SPEED
+        elif self.decision == 2 and self.y < HEIGHT_SIZE-self.size: #down
+            self.y += SPEED
+        elif self.decision == 3 and self.y > self.size: #up
+            self.y -= SPEED
+        elif self.decision == 4 and self.x < WIDTH_SIZE-self.size and self.y < HEIGHT_SIZE-self.size: #right-down
+            self.x += SPEED
+            self.y += SPEED
+        elif self.decision == 5 and self.x < WIDTH_SIZE-self.size and self.y > self.size: #right-up
+            self.x += SPEED
+            self.y -= SPEED
+        elif self.decision == 6 and self.x > self.size and self.y < HEIGHT_SIZE-self.size: #left-down
+            self.x -= SPEED
+            self.y += SPEED
+        elif self.decision == 7 and self.x > self.size and self.y > self.size: #left-up
+            self.x -= SPEED
+            self.y -= SPEED
+        else:
+            self.move_decision()
 
 # Simulation main loop
 def main():
@@ -36,6 +64,8 @@ def main():
 
         for organism in organisms:
             organism.draw()
+            organism.move_decision()
+            organism.move()
 
         pygame.display.update()
 
