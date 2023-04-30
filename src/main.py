@@ -26,9 +26,19 @@ class ORGANISM:
 # Simulation main loop
 def main():
     run = True
+    organisms = []
+    population = 10
 
     def update_screen():
-        screen.fill("darkslategray")
+
+        if len(organisms) == 0:
+            for i in range(population):
+                organism = ORGANISM(WIDTH_SIZE/2, HEIGHT_SIZE/2, "white")
+                organisms.append(organism)
+
+        for organism in organisms:
+            organism.draw()
+            
         pygame.display.update()
 
     while run:
@@ -38,6 +48,7 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
+        screen.fill("darkslategray")
         update_screen()
 
     pygame.quit()
