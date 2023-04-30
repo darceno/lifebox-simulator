@@ -26,6 +26,7 @@ class ORGANISM:
     def move_decision(self):
         self.decision = random.randrange(8) # 0/right - 1/left - 2/down - 3/up - 4/right-down - 5/right-up - 6/left-down - 7/left-up
         self.decision_delay = random.randint(5, 60)
+        self.last_decision = 0
 
     def move(self):
         if self.decision == 0 and self.x < WIDTH_SIZE-self.size: #right
@@ -70,11 +71,11 @@ def main():
         for organism in organisms:
             organism.draw()
             organism.move()
-            if frame_count > organism.decision_delay:
+            organism.last_decision += 1
+            if organism.last_decision > organism.decision_delay:
                 organism.move_decision()
+                organism.last_decision = 0
 
-        if frame_count > organism.decision_delay:
-            frame_count = 0
         
         pygame.display.update()
 
