@@ -1,5 +1,4 @@
-import pygame
-import random
+import pygame, random
 
 # Simulaiton settings
 WIDTH_SIZE, HEIGHT_SIZE = 1000, 500
@@ -13,7 +12,6 @@ clock = pygame.time.Clock()
 
 # Organisms parent class
 class ORGANISM:
-
     def __init__(self, x, y, color, size=15):
         self.x = random.randint(20, WIDTH_SIZE-20)
         self.y = random.randint(20, HEIGHT_SIZE-20)
@@ -38,7 +36,7 @@ def main():
 
         for organism in organisms:
             organism.draw()
-            
+
         pygame.display.update()
 
     while run:
