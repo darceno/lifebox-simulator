@@ -19,8 +19,16 @@ class ORGANISM:
         self.size = size
         self.color = color
         self.decision = None
+        self.rect = pygame.Rect(self.x, self.y, 1, 1)
 
     def draw(self):
+        rect_x = self.x - self.size
+        rect_y = self.y - self.size
+        rect_width = rect_height = self.size * 2
+        self.rect = pygame.Rect(rect_x, rect_y, rect_width, rect_height)
+        rect_surface = pygame.Surface((rect_width, rect_width), pygame.SRCALPHA)
+        screen.blit(rect_surface, (rect_x, rect_y))
+        pygame.draw.rect(rect_surface, (255, 0, 0, 255), self.rect)
         pygame.draw.circle(screen, self.color, (self.x, self.y), self.size)
 
     def move_decision(self):
@@ -57,11 +65,8 @@ def main():
     run = True
     organisms = []
     population = 10
-    frame_count = 0
 
     def update_screen():
-        nonlocal frame_count
-        frame_count += 1
 
         if len(organisms) == 0:
             for i in range(population):
