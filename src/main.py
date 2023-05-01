@@ -84,6 +84,7 @@ def main():
         for i in range(len(organisms)):
             for j in range(i+1, len(organisms)):
                 if organisms[i].rect.colliderect(organisms[j].rect):
+                    pass
         
         pygame.display.update()
 
