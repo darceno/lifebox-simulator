@@ -14,7 +14,7 @@ clock = pygame.time.Clock()
 
 # Organisms parent class
 class ORGANISM:
-    def __init__(self, x, y, color, size=15):
+    def __init__(self, x, y, color, size=10):
         self.x = random.randint(20, WIDTH_SIZE-20)
         self.y = random.randint(20, HEIGHT_SIZE-20)
         self.size = size
