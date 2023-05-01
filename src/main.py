@@ -78,15 +78,17 @@ class MAIN:
                 organism = ORGANISM(random.randint(20, WIDTH_SIZE-20), random.randint(20, HEIGHT_SIZE-20), "white")
                 self.organisms.append(organism)                
     
+    def check_collisions(self):
+        for i in range(len(self.organisms)):
+            for j in range(i+1, len(self.organisms)):
+                if self.organisms[i].rect.colliderect(self.organisms[j].rect):
+                    print("collision")
+    
     def update_screen(self):
         for organism in self.organisms:
             organism.draw()
             organism.move()
-
-        for i in range(len(self.organisms)):
-            for j in range(i+1, len(self.organisms)):
-                if self.organisms[i].rect.colliderect(self.organisms[j].rect):
-                    print("colidiu")
+        self.check_collisions()
 
         pygame.display.update()
 
