@@ -62,19 +62,17 @@ class ORGANISM:
         else:
             self.move_decision()
 
-# Simulation main loop
-def main():
-    run = True
-    organisms = []
+class MAIN:
+    def __init__(self):
+        self.organisms = []
 
-    def update_screen():
-
-        if len(organisms) == 0:
+    def update_screen(self):
+        if len(self.organisms) == 0:
             for i in range(INITIAL_POPULATION):
                 organism = ORGANISM(random.randint(20, WIDTH_SIZE-20), random.randint(20, HEIGHT_SIZE-20), "white")
-                organisms.append(organism)
+                self.organisms.append(organism)
 
-        for organism in organisms:
+        for organism in self.organisms:
             organism.draw()
             organism.move()
             organism.last_decision += 1
@@ -82,22 +80,25 @@ def main():
                 organism.move_decision()
                 organism.last_decision = 0
 
-        for i in range(len(organisms)):
-            for j in range(i+1, len(organisms)):
-                if organisms[i].rect.colliderect(organisms[j].rect):
-                    pass
-        
+        for i in range(len(self.organisms)):
+            for j in range(i+1, len(self.organisms)):
+                if self.organisms[i].rect.colliderect(self.organisms[j].rect):
+                    print("colidiu")
+
         pygame.display.update()
 
-    while run:
-        clock.tick(FPS)
+run = True
+simulation = MAIN()
+while run:
+    clock.tick(FPS)
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
 
-        screen.fill(BG_COLOR)
-        update_screen()
+    simulation.update_screen()
 
-    pygame.quit()
+    screen.fill(BG_COLOR)
 
+
+pygame.quit()
