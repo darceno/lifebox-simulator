@@ -22,6 +22,7 @@ class ORGANISM:
         self.color = color
         self.decision = None
         self.rect = pygame.Rect(self.x, self.y, 1, 1)
+        self.last_decision = 0
 
     def draw(self):
         rect_x = self.x - self.size
@@ -39,6 +40,7 @@ class ORGANISM:
         self.last_decision = 0
 
     def move(self):
+        self.last_decision += 1
         if self.decision == 0 and self.x < WIDTH_SIZE-self.size: #right
             self.x += SPEED
         elif self.decision == 1 and self.x > 20: #left
@@ -61,6 +63,9 @@ class ORGANISM:
             self.y -= SPEED
         else:
             self.move_decision()
+        if self.last_decision > self.decision_delay:
+            self.move_decision()
+            self.last_decision = 0
 
 # Simulation main class
 class MAIN:
@@ -77,10 +82,6 @@ class MAIN:
         for organism in self.organisms:
             organism.draw()
             organism.move()
-            organism.last_decision += 1
-            if organism.last_decision > organism.decision_delay:
-                organism.move_decision()
-                organism.last_decision = 0
 
         for i in range(len(self.organisms)):
             for j in range(i+1, len(self.organisms)):
