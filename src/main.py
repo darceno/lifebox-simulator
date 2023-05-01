@@ -15,8 +15,8 @@ clock = pygame.time.Clock()
 # Organisms parent class
 class ORGANISM:
     def __init__(self, x, y, color, size=10):
-        self.x = random.randint(20, WIDTH_SIZE-20)
-        self.y = random.randint(20, HEIGHT_SIZE-20)
+        self.x = x
+        self.y = y
         self.size = size
         self.color = color
         self.decision = None
@@ -71,7 +71,7 @@ def main():
 
         if len(organisms) == 0:
             for i in range(population):
-                organism = ORGANISM(WIDTH_SIZE/2, HEIGHT_SIZE/2, "white")
+                organism = ORGANISM(random.randint(20, WIDTH_SIZE-20), random.randint(20, HEIGHT_SIZE-20), "white")
                 organisms.append(organism)
 
         for organism in organisms:
