@@ -67,12 +67,13 @@ class MAIN:
     def __init__(self):
         self.organisms = []
 
-    def update_screen(self):
+    def create_organisms(self):
         if len(self.organisms) == 0:
             for i in range(INITIAL_POPULATION):
                 organism = ORGANISM(random.randint(20, WIDTH_SIZE-20), random.randint(20, HEIGHT_SIZE-20), "white")
-                self.organisms.append(organism)
-
+                self.organisms.append(organism)                
+    
+    def update_screen(self):
         for organism in self.organisms:
             organism.draw()
             organism.move()
@@ -98,6 +99,7 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
+    simulation.create_organisms()
     simulation.update_screen()
 
     screen.fill(BG_COLOR)
