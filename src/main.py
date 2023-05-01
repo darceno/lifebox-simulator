@@ -4,6 +4,7 @@ import pygame, random
 WIDTH_SIZE, HEIGHT_SIZE = 1000, 500
 FPS = 60
 SPEED = 2
+BG_COLOR = (21, 36, 36)
 
 # Pygame setup
 pygame.init()
@@ -95,7 +96,7 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
-        screen.fill("darkslategray")
+        screen.fill(BG_COLOR)
         update_screen()
 
     pygame.quit()
