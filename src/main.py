@@ -5,6 +5,7 @@ WIDTH_SIZE, HEIGHT_SIZE = 1000, 500
 FPS = 60
 SPEED = 2
 BG_COLOR = (21, 36, 36)
+INITIAL_POPULATION = 10
 
 # Pygame setup
 pygame.init()
@@ -65,12 +66,11 @@ class ORGANISM:
 def main():
     run = True
     organisms = []
-    population = 10
 
     def update_screen():
 
         if len(organisms) == 0:
-            for i in range(population):
+            for i in range(INITIAL_POPULATION):
                 organism = ORGANISM(random.randint(20, WIDTH_SIZE-20), random.randint(20, HEIGHT_SIZE-20), "white")
                 organisms.append(organism)
 
