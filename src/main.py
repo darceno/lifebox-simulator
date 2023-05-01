@@ -13,7 +13,7 @@ screen = pygame.display.set_mode((WIDTH_SIZE, HEIGHT_SIZE), pygame.SCALED | pyga
 pygame.display.set_caption("Cell Simulation")
 clock = pygame.time.Clock()
 
-# Organisms parent class
+# Organisms class
 class ORGANISM:
     def __init__(self, x, y, color, size=10):
         self.x = x
@@ -62,6 +62,7 @@ class ORGANISM:
         else:
             self.move_decision()
 
+# Simulation main class
 class MAIN:
     def __init__(self):
         self.organisms = []
@@ -87,6 +88,7 @@ class MAIN:
 
         pygame.display.update()
 
+# Pygame game loop
 run = True
 simulation = MAIN()
 while run:
