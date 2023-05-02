@@ -15,7 +15,7 @@ clock = pygame.time.Clock()
 
 # Organisms class
 class ORGANISM:
-    def __init__(self, x, y, color, size=10):
+    def __init__(self, x, y, color, size=10, genome=["PS", "RA"]):
         self.x = x
         self.y = y
         self.size = size
@@ -23,6 +23,7 @@ class ORGANISM:
         self.decision = None
         self.rect = pygame.Rect(self.x, self.y, 1, 1)
         self.last_decision = 0
+        self.genome = genome
 
     def draw(self):
         rect_x = self.x - self.size
