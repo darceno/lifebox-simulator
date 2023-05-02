@@ -81,6 +81,10 @@ class Organism:
         if "CR" in self.genome:
             self.energy += 5
 
+    def universal_abilities(self):
+        self.draw()
+        self.energy_consumption()
+
 # Simulation main class
 class Main:
     def __init__(self):
@@ -100,9 +104,8 @@ class Main:
     
     def update_screen(self):
         for organism in self.organisms:
-            organism.draw()
+            organism.universal_abilities()
             organism.move()
-            organism.energy_consumption()
             organism.cellular_respiration()
         self.check_collisions()
 
