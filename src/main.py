@@ -11,7 +11,7 @@ INITIAL_POPULATION = 10
 # Pygame setup
 pygame.init()
 screen = pygame.display.set_mode((WIDTH_SIZE, HEIGHT_SIZE), pygame.SCALED | pygame.RESIZABLE)
-pygame.display.set_caption("Cell Simulation")
+pygame.display.set_caption("LifeBox Simulator")
 clock = pygame.time.Clock()
 
 # Organisms class
