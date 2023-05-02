@@ -104,6 +104,15 @@ class Main:
                 if self.organisms[i].rect.colliderect(self.organisms[j].rect):
                     self.organisms[i].collision_abilities(self.organisms[j])
 
+    def info_display(self):
+        self.font = pygame.font.SysFont(None, 30)
+        self.population = len(self.organisms)
+        self.frames = int(clock.get_fps())
+        FPS_counter = self.font.render(f"FPS: {self.frames}", False, pygame.Color("white"))
+        population_counter = self.font.render(f"Current population: {self.population}", False, pygame.Color("white"))
+        screen.blit(FPS_counter, (10, 10))
+        screen.blit(population_counter, (10, 30))
+
     def update_screen(self):
         for organism in self.organisms:
             organism.universal_abilities()
@@ -123,6 +132,7 @@ while run:
             run = False
 
     simulation.create_organisms()
+    simulation.info_display()
     simulation.update_screen()
 
     screen.fill(BG_COLOR)
