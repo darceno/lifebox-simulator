@@ -77,6 +77,10 @@ class Organism:
             self.energy -= 1
             self.hunger = 0
 
+    def cellular_respiration(self):
+        if "CR" in self.genome:
+            self.energy += 5
+
 # Simulation main class
 class Main:
     def __init__(self):
@@ -99,6 +103,7 @@ class Main:
             organism.draw()
             organism.move()
             organism.energy_consumption()
+            organism.cellular_respiration()
         self.check_collisions()
 
         pygame.display.update()
