@@ -1,4 +1,5 @@
-import pygame, random
+import pygame
+import random
 
 # Simulaiton settings
 WIDTH_SIZE, HEIGHT_SIZE = 1000, 500
@@ -14,7 +15,7 @@ pygame.display.set_caption("Cell Simulation")
 clock = pygame.time.Clock()
 
 # Organisms class
-class ORGANISM:
+class Organism:
     def __init__(self, x, y, color, size=10, genome=["PS", "RA"]):
         self.x = x
         self.y = y
@@ -69,14 +70,14 @@ class ORGANISM:
             self.last_decision = 0
 
 # Simulation main class
-class MAIN:
+class Main:
     def __init__(self):
         self.organisms = []
 
     def create_organisms(self):
         if len(self.organisms) == 0:
             for i in range(INITIAL_POPULATION):
-                organism = ORGANISM(random.randint(20, WIDTH_SIZE-20), random.randint(20, HEIGHT_SIZE-20), "white")
+                organism = Organism(random.randint(20, WIDTH_SIZE-20), random.randint(20, HEIGHT_SIZE-20), "white")
                 self.organisms.append(organism)                
     
     def check_collisions(self):
@@ -95,7 +96,7 @@ class MAIN:
 
 # Pygame game loop
 run = True
-simulation = MAIN()
+simulation = Main()
 while run:
     clock.tick(FPS)
 
