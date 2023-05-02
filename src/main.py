@@ -25,6 +25,8 @@ class Organism:
         self.rect = pygame.Rect(self.x, self.y, 1, 1)
         self.last_decision = 0
         self.genome = genome
+        self.energy = 3
+        self.hunger = 0
 
     def draw(self):
         rect_x = self.x - self.size
@@ -69,6 +71,12 @@ class Organism:
             self.move_decision()
             self.last_decision = 0
 
+    def energy_consumption(self):
+        self.hunger += 1
+        if self.hunger >= 300:
+            self.energy -= 1
+            self.hunger = 0
+
 # Simulation main class
 class Main:
     def __init__(self):
@@ -90,6 +98,7 @@ class Main:
         for organism in self.organisms:
             organism.draw()
             organism.move()
+            organism.energy_consumption()
         self.check_collisions()
 
         pygame.display.update()
