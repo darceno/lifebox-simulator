@@ -16,7 +16,7 @@ clock = pygame.time.Clock()
 
 # Organisms class
 class Organism:
-    def __init__(self, x, y, color, size=7, genome=["PS", "RA"]):
+    def __init__(self, x, y, color, size=7, genome=["CR", "RA"]):
         self.x = x
         self.y = y
         self.size = size
