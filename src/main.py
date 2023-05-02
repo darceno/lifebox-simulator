@@ -105,13 +105,15 @@ class Main:
                     self.organisms[i].collision_abilities(self.organisms[j])
 
     def info_display(self):
-        self.font = pygame.font.SysFont(None, 30)
+        self.font = pygame.font.SysFont(None, font_size)
         self.population = len(self.organisms)
         self.frames = int(clock.get_fps())
-        FPS_counter = self.font.render(f"FPS: {self.frames}", False, pygame.Color("white"))
-        population_counter = self.font.render(f"Current population: {self.population}", False, pygame.Color("white"))
-        screen.blit(FPS_counter, (10, 10))
-        screen.blit(population_counter, (10, 30))
+        FPS_counter = self.font.render(f"FPS: {self.frames}",  anti_aliasing, font_color)
+        population_counter = self.font.render(f"Current population: {self.population}", anti_aliasing, font_color)
+        if show_FPS:
+            screen.blit(FPS_counter, (10, 10))
+        if show_population:
+            screen.blit(population_counter, (10, 30))
 
     def update_screen(self):
         for organism in self.organisms:
@@ -132,7 +134,8 @@ while run:
             run = False
 
     simulation.create_organisms()
-    simulation.info_display()
+    if enable_info_display:
+        simulation.info_display()
     simulation.update_screen()
 
     screen.fill(BG_COLOR)
