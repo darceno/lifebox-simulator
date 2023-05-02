@@ -11,7 +11,7 @@ clock = pygame.time.Clock()
 
 # Organisms class
 class Organism:
-    def __init__(self, x, y, color, size=7, genome=["CR", "RA"]):
+    def __init__(self, x, y, color, size=STARTING_SIZE, genome=["CR", "RA"]):
         self.x = x
         self.y = y
         self.size = size
@@ -94,8 +94,8 @@ class Main:
 
     def create_organisms(self):
         if len(self.organisms) == 0:
-            for i in range(INITIAL_POPULATION):
-                organism = Organism(random.randint(20, WIDTH_SIZE-20), random.randint(20, HEIGHT_SIZE-20), "white")
+            for i in range(STARTING_POPULATION):
+                organism = Organism(random.randint(20, WIDTH_SIZE-20), random.randint(20, HEIGHT_SIZE-20), STARTING_COLOR)
                 self.organisms.append(organism)                
     
     def check_collisions(self):
