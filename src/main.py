@@ -89,6 +89,9 @@ class Organism:
         if "CR" in self.genome:
             self.cellular_respiration()
 
+    def collision_abilities(self, organism2):
+        print("collision")
+
 # Simulation main class
 class Main:
     def __init__(self):
@@ -104,8 +107,8 @@ class Main:
         for i in range(len(self.organisms)):
             for j in range(i+1, len(self.organisms)):
                 if self.organisms[i].rect.colliderect(self.organisms[j].rect):
-                    print("collision")
-    
+                    self.organisms[i].collision_abilities(self.organisms[j])
+
     def update_screen(self):
         for organism in self.organisms:
             organism.universal_abilities()
