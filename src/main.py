@@ -78,12 +78,16 @@ class Organism:
             self.hunger = 0
 
     def cellular_respiration(self):
-        if "CR" in self.genome:
             self.energy += 5
 
     def universal_abilities(self):
         self.draw()
         self.energy_consumption()
+
+    def genetic_abilities(self):
+        self.move()
+        if "CR" in self.genome:
+            self.cellular_respiration()
 
 # Simulation main class
 class Main:
@@ -105,8 +109,7 @@ class Main:
     def update_screen(self):
         for organism in self.organisms:
             organism.universal_abilities()
-            organism.move()
-            organism.cellular_respiration()
+            organism.genetic_abilities()
         self.check_collisions()
 
         pygame.display.update()
