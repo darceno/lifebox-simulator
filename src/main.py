@@ -3,8 +3,8 @@ import random
 
 # Simulaiton settings
 WIDTH_SIZE, HEIGHT_SIZE = 1000, 500
-FPS = 60
-SPEED = 2
+FPS = 30
+SPEED = 1
 BG_COLOR = (21, 36, 36)
 INITIAL_POPULATION = 10
 
@@ -16,7 +16,7 @@ clock = pygame.time.Clock()
 
 # Organisms class
 class Organism:
-    def __init__(self, x, y, color, size=10, genome=["PS", "RA"]):
+    def __init__(self, x, y, color, size=7, genome=["PS", "RA"]):
         self.x = x
         self.y = y
         self.size = size
