@@ -112,8 +112,10 @@ class Main:
         population_counter = self.font.render(f"Current population: {self.population}", anti_aliasing, font_color)
         if show_FPS:
             screen.blit(FPS_counter, (10, 10))
-        if show_population:
-            screen.blit(population_counter, (10, 30))
+        if show_population and show_FPS:
+            screen.blit(population_counter, (10, font_size))
+        if show_population and not show_FPS:
+            screen.blit(population_counter, (10, 10))
 
     def update_screen(self):
         for organism in self.organisms:
