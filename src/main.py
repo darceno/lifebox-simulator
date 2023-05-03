@@ -66,18 +66,11 @@ class Organism:
             self.move_decision()
             self.last_decision = 0
 
-    def energy_consumption(self):
-        self.hunger += 1
-        if self.hunger >= 300:
-            self.energy -= 1
-            self.hunger = 0
-
     def cellular_respiration(self):
             self.energy += 5
 
     def universal_abilities(self):
         self.draw()
-        self.energy_consumption()
 
     def genetic_abilities(self):
         self.move()
