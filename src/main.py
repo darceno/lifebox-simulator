@@ -22,6 +22,8 @@ class Organism:
         self.genome = genome
         self.energy = 1
         self.nutrients = 0
+        self.last_birthday = 0
+        self.age = 0
 
     def draw(self):
         rect_x = self.x - self.size
@@ -84,8 +86,15 @@ class Organism:
             else:
                 self.energy -= self.energy//2
 
+    def aging(self):
+        self.last_birthday += 1
+        if self.last_birthday >= 450:
+            self.age += 1
+            self.last_birthday = 0
+
     def universal_abilities(self):
         self.draw()
+        self.aging()
 
     def genetic_abilities(self):
         self.move()
