@@ -66,16 +66,11 @@ class Organism:
             self.move_decision()
             self.last_decision = 0
 
-    def cellular_respiration(self):
-            self.energy += 5
-
     def universal_abilities(self):
         self.draw()
 
     def genetic_abilities(self):
         self.move()
-        if "CR" in self.genome:
-            self.cellular_respiration()
 
     def collision_abilities(self, organism2):
         print("collision")
