@@ -24,6 +24,7 @@ class Organism:
         self.nutrients = 0
         self.last_birthday = 0
         self.age = 0
+        self.alive = True
 
     def draw(self):
         rect_x = self.x - self.size
@@ -91,6 +92,10 @@ class Organism:
         if self.last_birthday >= 450:
             self.age += 1
             self.last_birthday = 0
+        if self.age > len(self.genome):
+            self.alive = False
+        print(self.age)
+        print(self.alive)
 
     def universal_abilities(self):
         self.draw()
@@ -100,8 +105,8 @@ class Organism:
         self.move()
         if "CR" in self.genome:
             self.CR_energy_balance()
-        if "RA" in self.genome:
-            self.asexual_reproduction()
+        #if "RA" in self.genome:
+         #   self.asexual_reproduction()
 
     def collision_abilities(self, organism2):
         pass
@@ -110,6 +115,7 @@ class Organism:
 class Main:
     def __init__(self):
         self.organisms = []
+        self.alive_organisms = []
 
     def create_organisms(self):
         if len(self.organisms) == 0:
@@ -119,6 +125,13 @@ class Main:
                              
     def spawn_offsprings(self, offspring):
         self.organisms.append(offspring)
+    
+    def check_if_alive(self):
+        for i in range(len(self.organisms)):
+            if self.organisms[i].alive == True:
+                self.alive_organisms.append(self.organisms[i])
+        self.organisms = self.alive_organisms
+        self.alive_organisms = []
     
     def check_collisions(self):
         for i in range(len(self.organisms)):
@@ -144,6 +157,7 @@ class Main:
             organism.universal_abilities()
             organism.genetic_abilities()
         self.check_collisions()
+        self.check_if_alive()
 
         pygame.display.update()
 
