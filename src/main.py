@@ -89,7 +89,7 @@ class Organism:
 
     def aging(self):
         self.last_birthday += 1
-        if self.last_birthday >= 450:
+        if self.last_birthday >= 100:
             self.age += 1
             self.last_birthday = 0
         if self.age > len(self.genome):
@@ -116,12 +116,15 @@ class Main:
     def __init__(self):
         self.organisms = []
         self.alive_organisms = []
+        self.first_generation = True
+
 
     def create_organisms(self):
-        if len(self.organisms) == 0:
+        if self.first_generation:
             for i in range(STARTING_POPULATION):
                 organism = Organism(random.randint(20, WIDTH_SIZE-20), random.randint(20, HEIGHT_SIZE-20), STARTING_COLOR, ["CR", "RA"])
                 self.organisms.append(organism)
+            self.first_generation = False
                              
     def spawn_offsprings(self, offspring):
         self.organisms.append(offspring)
