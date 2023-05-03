@@ -105,7 +105,7 @@ class Main:
     def create_organisms(self):
         if len(self.organisms) == 0:
             for i in range(STARTING_POPULATION):
-                organism = Organism(random.randint(20, WIDTH_SIZE-20), random.randint(20, HEIGHT_SIZE-20), STARTING_COLOR, ["CR", "RA", "A", "B", "C"])
+                organism = Organism(random.randint(20, WIDTH_SIZE-20), random.randint(20, HEIGHT_SIZE-20), STARTING_COLOR, ["CR", "RA"])
                 self.organisms.append(organism)
                              
     def spawn_offsprings(self, offspring):
