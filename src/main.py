@@ -69,16 +69,20 @@ class Organism:
     def CR_energy_balance(self):
         self.hunger = 0
         self.hunger += len(self.genome)
-        self.nutrients += 11 - self.hunger
+        nutrients_variation = random.randint(3, 9)
+        self.nutrients += nutrients_variation - self.hunger
         if self.nutrients >= 1000:
             self.energy += 1
             self.nutrients = 0
     
     def asexual_reproduction(self):
         if self.energy >= len(self.genome) + 1:
-            offspring = Organism(self.x, self.y, "blue", self.genome)
-            simulation.spawn_offsprings(offspring)
-            self.energy -= len(self.genome)
+            if random.randint(1, 2) == 2:
+                offspring = Organism(self.x, self.y, "blue", self.genome)
+                simulation.spawn_offsprings(offspring)
+                self.energy -= len(self.genome)
+            else:
+                self.energy -= self.energy/2
 
     def universal_abilities(self):
         self.draw()
@@ -101,7 +105,7 @@ class Main:
     def create_organisms(self):
         if len(self.organisms) == 0:
             for i in range(STARTING_POPULATION):
-                organism = Organism(random.randint(20, WIDTH_SIZE-20), random.randint(20, HEIGHT_SIZE-20), STARTING_COLOR, ["CR", "RA"])
+                organism = Organism(random.randint(20, WIDTH_SIZE-20), random.randint(20, HEIGHT_SIZE-20), STARTING_COLOR, ["CR", "RA", "A", "B", "C"])
                 self.organisms.append(organism)
                              
     def spawn_offsprings(self, offspring):
