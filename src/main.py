@@ -73,9 +73,6 @@ class Organism:
         if self.nutrients >= 1000:
             self.energy += 1
             self.nutrients = 0
-        print(f"hunger: {self.hunger}")
-        print(f"nutrients: {self.nutrients}")
-        print(f"energy points: {self.energy}")
 
     def universal_abilities(self):
         self.draw()
@@ -86,7 +83,7 @@ class Organism:
             self.CR_energy_balance()
 
     def collision_abilities(self, organism2):
-        print("collision")
+        pass
 
 # Simulation main class
 class Main:
