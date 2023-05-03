@@ -73,6 +73,12 @@ class Organism:
         if self.nutrients >= 1000:
             self.energy += 1
             self.nutrients = 0
+    
+    def asexual_reproduction(self):
+        if self.energy >= len(self.genome) + 1:
+            offspring = Organism(self.x, self.y, "blue", self.genome)
+            simulation.spawn_offsprings(offspring)
+            self.energy -= len(self.genome)
 
     def universal_abilities(self):
         self.draw()
@@ -81,6 +87,8 @@ class Organism:
         self.move()
         if "CR" in self.genome:
             self.CR_energy_balance()
+        if "RA" in self.genome:
+            self.asexual_reproduction()
 
     def collision_abilities(self, organism2):
         pass
@@ -94,7 +102,10 @@ class Main:
         if len(self.organisms) == 0:
             for i in range(STARTING_POPULATION):
                 organism = Organism(random.randint(20, WIDTH_SIZE-20), random.randint(20, HEIGHT_SIZE-20), STARTING_COLOR, ["CR", "RA"])
-                self.organisms.append(organism)                
+                self.organisms.append(organism)
+                             
+    def spawn_offsprings(self, offspring):
+        self.organisms.append(offspring)
     
     def check_collisions(self):
         for i in range(len(self.organisms)):
