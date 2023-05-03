@@ -20,8 +20,8 @@ class Organism:
         self.rect = pygame.Rect(self.x, self.y, 1, 1)
         self.last_decision = 0
         self.genome = genome
-        self.energy = 3
-        self.hunger = 0
+        self.energy = 1
+        self.nutrients = 0
 
     def draw(self):
         rect_x = self.x - self.size
@@ -66,11 +66,24 @@ class Organism:
             self.move_decision()
             self.last_decision = 0
 
+    def CR_energy_balance(self):
+        self.hunger = 0
+        self.hunger += len(self.genome)
+        self.nutrients += 11 - self.hunger
+        if self.nutrients >= 1000:
+            self.energy += 1
+            self.nutrients = 0
+        print(f"hunger: {self.hunger}")
+        print(f"nutrients: {self.nutrients}")
+        print(f"energy points: {self.energy}")
+
     def universal_abilities(self):
         self.draw()
 
     def genetic_abilities(self):
         self.move()
+        if "CR" in self.genome:
+            self.CR_energy_balance()
 
     def collision_abilities(self, organism2):
         print("collision")
