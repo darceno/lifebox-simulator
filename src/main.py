@@ -82,7 +82,7 @@ class Organism:
                 simulation.spawn_offsprings(offspring)
                 self.energy -= len(self.genome)
             else:
-                self.energy -= self.energy/2
+                self.energy -= self.energy//2
 
     def universal_abilities(self):
         self.draw()
