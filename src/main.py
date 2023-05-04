@@ -94,8 +94,6 @@ class Organism:
             self.last_birthday = 0
         if self.age > len(self.genome):
             self.alive = False
-        print(self.age)
-        print(self.alive)
 
     def universal_abilities(self):
         self.draw()
@@ -105,8 +103,8 @@ class Organism:
         self.move()
         if "CR" in self.genome:
             self.CR_energy_balance()
-        #if "RA" in self.genome:
-         #   self.asexual_reproduction()
+        if "RA" in self.genome:
+           self.asexual_reproduction()
 
     def collision_abilities(self, organism2):
         pass
