@@ -115,6 +115,7 @@ class Main:
         self.organisms = []
         self.alive_organisms = []
         self.first_generation = True
+        self.time = time.time()
 
 
     def create_organisms(self):
@@ -159,6 +160,8 @@ class Main:
             organism.genetic_abilities()
         self.check_collisions()
         self.check_if_alive()
+        current_time = time.time() - self.time
+        #print(f"simulation time: {'%.2f' % (current_time)}")
 
         pygame.display.update()
 
