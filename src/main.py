@@ -89,7 +89,7 @@ class Organism:
                 self.energy -= self.energy//2
 
     def aging(self):
-        if time.time() - self.last_birthday > 15:
+        if time.time() - self.last_birthday > YEAR:
             self.age += 1
             self.last_birthday = time.time()
         if self.age == len(self.genome):
