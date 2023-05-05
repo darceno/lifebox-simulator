@@ -43,24 +43,24 @@ class Organism:
 
     def move(self):
         self.last_decision += 1
-        if self.decision == 0 and self.x < WIDTH_SIZE-self.size: #right
+        if self.decision == 0 and self.x + SPEED < WIDTH_SIZE-self.size: #right
             self.x += SPEED
-        elif self.decision == 1 and self.x > 20: #left
+        elif self.decision == 1 and self.x - SPEED > 20: #left
             self.x -= SPEED
-        elif self.decision == 2 and self.y < HEIGHT_SIZE-self.size: #down
+        elif self.decision == 2 and self.y + SPEED < HEIGHT_SIZE-self.size: #down
             self.y += SPEED
-        elif self.decision == 3 and self.y > self.size: #up
+        elif self.decision == 3 and self.y - SPEED > self.size: #up
             self.y -= SPEED
-        elif self.decision == 4 and self.x < WIDTH_SIZE-self.size and self.y < HEIGHT_SIZE-self.size: #right-down
+        elif self.decision == 4 and self.x + SPEED < WIDTH_SIZE-self.size and self.y + SPEED < HEIGHT_SIZE-self.size: #right-down
             self.x += SPEED
             self.y += SPEED
-        elif self.decision == 5 and self.x < WIDTH_SIZE-self.size and self.y > self.size: #right-up
+        elif self.decision == 5 and self.x + SPEED < WIDTH_SIZE-self.size and self.y - SPEED > self.size: #right-up
             self.x += SPEED
             self.y -= SPEED
-        elif self.decision == 6 and self.x > self.size and self.y < HEIGHT_SIZE-self.size: #left-down
+        elif self.decision == 6 and self.x - SPEED > self.size and self.y + SPEED < HEIGHT_SIZE-self.size: #left-down
             self.x -= SPEED
             self.y += SPEED
-        elif self.decision == 7 and self.x > self.size and self.y > self.size: #left-up
+        elif self.decision == 7 and self.x - SPEED > self.size and self.y - SPEED > self.size: #left-up
             self.x -= SPEED
             self.y -= SPEED
         else:
