@@ -23,7 +23,7 @@ class Organism:
         self.genome = genome
         self.energy = 1
         self.nutrients = 0
-        self.last_birthday = 0
+        self.last_birthday = time.time()
         self.age = 0
         self.alive = True
 
