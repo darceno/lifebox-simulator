@@ -89,11 +89,10 @@ class Organism:
                 self.energy -= self.energy//2
 
     def aging(self):
-        self.last_birthday += 1
-        if self.last_birthday >= 100:
+        if time.time() - self.last_birthday > 15:
             self.age += 1
-            self.last_birthday = 0
-        if self.age > len(self.genome):
+            self.last_birthday = time.time()
+        if self.age == len(self.genome):
             self.alive = False
 
     def universal_abilities(self):
