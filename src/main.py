@@ -1,5 +1,6 @@
 import pygame
 import random
+import time
 
 from settings import *
 
@@ -37,12 +38,15 @@ class Organism:
         pygame.draw.circle(screen, self.color, (self.x, self.y), self.size)
 
     def move_decision(self):
-        self.decision = random.randrange(8) # 0/right - 1/left - 2/down - 3/up - 4/right-down - 5/right-up - 6/left-down - 7/left-up
-        self.decision_delay = random.randint(5, 60)
-        self.last_decision = 0
+        self.decision = random.randint(0, 7) # 0/right - 1/left - 2/down - 3/up - 4/right-down - 5/right-up - 6/left-down - 7/left-up
+        self.decision_delay = random.randint(1, 4)
+        self.last_decision = time.time()
 
     def move(self):
-        self.last_decision += 1
+        if self.last_decision == 0:
+            self.move_decision()
+        if time.time() - self.last_decision > self.decision_delay:
+            self.move_decision()
         if self.decision == 0 and self.x + SPEED < WIDTH_SIZE-self.size: #right
             self.x += SPEED
         elif self.decision == 1 and self.x - SPEED > 20: #left
@@ -65,9 +69,6 @@ class Organism:
             self.y -= SPEED
         else:
             self.move_decision()
-        if self.last_decision > self.decision_delay:
-            self.move_decision()
-            self.last_decision = 0
 
     def CR_energy_balance(self):
         self.hunger = 0
