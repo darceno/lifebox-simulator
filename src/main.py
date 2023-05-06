@@ -39,7 +39,8 @@ class Organism:
 
     def move_decision(self):
         self.decision = random.randint(0, 7) # 0/right - 1/left - 2/down - 3/up - 4/right-down - 5/right-up - 6/left-down - 7/left-up
-        self.decision_delay = random.randint(1, 4)
+        decision_options = [1, 1, 1, 1, 2, 2, 2, 3, 3, 4]
+        self.decision_delay = random.choice(decision_options)
         self.last_decision = time.time()
 
     def move(self):
