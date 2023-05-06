@@ -148,17 +148,26 @@ class Main:
                     self.organisms[i].collision_abilities(self.organisms[j])
 
     def info_display(self):
+        current_time = time.time() - self.time
         self.font = pygame.font.SysFont(None, font_size)
         self.population = len(self.organisms)
         self.frames = int(clock.get_fps())
         FPS_counter = self.font.render(f"FPS: {self.frames}",  anti_aliasing, font_color)
         population_counter = self.font.render(f"Current population: {self.population}", anti_aliasing, font_color)
+        simulation_time = self.font.render(f"Simulation time: {'%.1f' % (current_time)} sec", anti_aliasing, font_color)
         if show_FPS:
             screen.blit(FPS_counter, (10, 10))
         if show_population and show_FPS:
             screen.blit(population_counter, (10, font_size))
         if show_population and not show_FPS:
             screen.blit(population_counter, (10, 10))
+        if show_time and show_FPS and show_population:
+            screen.blit(simulation_time, (10, font_size*2))
+        if show_time and show_population and not show_FPS:
+            screen.blit(simulation_time, (10, font_size))
+        if show_time and not show_population and not show_FPS:
+            screen.blit(simulation_time, (10, 10))
+
 
     def update_screen(self):
         for organism in self.organisms:
@@ -166,8 +175,6 @@ class Main:
             organism.genetic_abilities()
         self.check_collisions()
         self.check_if_alive()
-        current_time = time.time() - self.time
-        #print(f"simulation time: {'%.2f' % (current_time)}")
 
         pygame.display.update()
 

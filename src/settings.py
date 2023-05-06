@@ -22,3 +22,4 @@ font_color = "white" # default = "white"
 anti_aliasing = True # default = True
 show_FPS = True # default = True
 show_population = True # default = True
+show_time = True # defatult = True
