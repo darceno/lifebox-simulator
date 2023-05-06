@@ -85,7 +85,7 @@ class Organism:
     
     def asexual_reproduction(self):
         if self.energy >= len(self.genome) + 1:
-            if random.randint(1, 2) == 2:
+            if random.randint(1, 10) >= 8:
                 offspring = Organism(self.x, self.y, "blue", self.genome)
                 simulation.spawn_offsprings(offspring)
                 self.energy -= len(self.genome)
