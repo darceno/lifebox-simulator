@@ -158,13 +158,15 @@ class Main:
         if show_FPS:
             screen.blit(FPS_counter, (10, 10))
         if show_population and show_FPS:
-            screen.blit(population_counter, (10, font_size))
+            screen.blit(population_counter, (10, 10 + font_size))
         if show_population and not show_FPS:
             screen.blit(population_counter, (10, 10))
         if show_time and show_FPS and show_population:
-            screen.blit(simulation_time, (10, font_size*2))
+            screen.blit(simulation_time, (10, 10 + (font_size*2)))
         if show_time and show_population and not show_FPS:
-            screen.blit(simulation_time, (10, font_size))
+            screen.blit(simulation_time, (10, 10 + font_size))
+        if show_time and show_FPS and not show_population:
+            screen.blit(simulation_time, (10, 10 + font_size))
         if show_time and not show_population and not show_FPS:
             screen.blit(simulation_time, (10, 10))
 
