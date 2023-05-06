@@ -23,7 +23,7 @@ class Organism:
         self.size = len(self.genome) * SIZE_BY_GENE
         self.energy = 1
         self.nutrients = 0
-        self.last_birthday = time.time()
+        self.last_birthday = self.last_cellular_respiration = time.time()
         self.age = 0
         self.alive = True
 
@@ -70,14 +70,18 @@ class Organism:
         else:
             self.move_decision()
 
-    def CR_energy_balance(self):
-        self.hunger = 0
-        self.hunger += len(self.genome)
-        nutrients_variation = random.randint(3, 9)
-        self.nutrients += nutrients_variation - self.hunger
-        if self.nutrients >= 1000:
+    def cellular_respiration(self):
+        if time.time() - self.last_cellular_respiration > 1:
+            energy_consumption = len(self.genome) + 3
+            nutrients_variation = random.randint(7, 13)
+            self.nutrients += nutrients_variation - energy_consumption
+            self.last_cellular_respiration = time.time()
+
+    def energy_conversion(self):
+        if self.nutrients >= 30:
             self.energy += 1
-            self.nutrients = 0
+            self.nutrients -= 30
+            self.energy_conversion()      
     
     def asexual_reproduction(self):
         if self.energy >= len(self.genome) + 1:
@@ -98,11 +102,12 @@ class Organism:
     def universal_abilities(self):
         self.draw()
         self.aging()
+        self.energy_conversion()
 
     def genetic_abilities(self):
         self.move()
         if "CR" in self.genome:
-            self.CR_energy_balance()
+            self.cellular_respiration()
         if "RA" in self.genome:
            self.asexual_reproduction()
 
