@@ -5,7 +5,7 @@ Here you can edit most of the variables that are used as parameters in the simul
 
 # SIMULATION SETTINGS
 WIDTH_SIZE, HEIGHT_SIZE = 1280, 720 # default = 1280, 720
-FPS = 30 # default = 30
+FPS = 60 # default = 60
 BG_COLOR = (21, 36, 36) # default = (21, 36, 36)
 STARTING_POPULATION = 10 # default = 10
 YEAR = 30 # default = 30
