@@ -10,6 +10,7 @@ screen = pygame.display.set_mode((WIDTH_SIZE, HEIGHT_SIZE), pygame.SCALED | pyga
 pygame.display.set_caption("LifeBox Simulator")
 clock = pygame.time.Clock()
 
+
 # Organisms class
 class Organism:
     def __init__(self, x, y, color, genome):
@@ -115,6 +116,7 @@ class Organism:
     def collision_abilities(self, organism2):
         pass
 
+
 # Simulation main class
 class Main:
     def __init__(self):
@@ -122,7 +124,6 @@ class Main:
         self.alive_organisms = []
         self.first_generation = True
         self.time = time.time()
-
 
     def create_organisms(self):
         if self.first_generation:
@@ -170,7 +171,6 @@ class Main:
         if show_time and not show_population and not show_FPS:
             screen.blit(simulation_time, (10, 10))
 
-
     def update_screen(self):
         for organism in self.organisms:
             organism.universal_abilities()
@@ -180,9 +180,11 @@ class Main:
 
         pygame.display.update()
 
+
 # Pygame game loop
 run = True
 simulation = Main()
+
 while run:
     clock.tick(FPS)
 
@@ -196,6 +198,5 @@ while run:
     simulation.update_screen()
 
     screen.fill(BG_COLOR)
-
 
 pygame.quit()
