@@ -107,11 +107,12 @@ class Organism:
         self.energy_conversion()
 
     def genetic_abilities(self):
-        self.move()
         if "CR" in self.genome:
             self.cellular_respiration()
         if "RA" in self.genome:
            self.asexual_reproduction()
+        if "MM" in self.genome:
+            self.move()
 
     def collision_abilities(self, organism2):
         pass
