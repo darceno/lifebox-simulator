@@ -50,25 +50,25 @@ class Organism:
         if time.time() - self.last_decision > self.decision_delay:
             self.move_decision()
         if self.decision == 0 and self.x + SPEED < WIDTH_SIZE-self.size: #right
-            self.x += SPEED
+            self.x += SPEED * dt
         elif self.decision == 1 and self.x - SPEED > 20: #left
-            self.x -= SPEED
+            self.x -= SPEED * dt
         elif self.decision == 2 and self.y + SPEED < HEIGHT_SIZE-self.size: #down
-            self.y += SPEED
+            self.y += SPEED * dt
         elif self.decision == 3 and self.y - SPEED > self.size: #up
-            self.y -= SPEED
+            self.y -= SPEED * dt
         elif self.decision == 4 and self.x + SPEED < WIDTH_SIZE-self.size and self.y + SPEED < HEIGHT_SIZE-self.size: #right-down
-            self.x += SPEED
-            self.y += SPEED
+            self.x += SPEED * dt
+            self.y += SPEED * dt
         elif self.decision == 5 and self.x + SPEED < WIDTH_SIZE-self.size and self.y - SPEED > self.size: #right-up
-            self.x += SPEED
-            self.y -= SPEED
+            self.x += SPEED * dt
+            self.y -= SPEED * dt
         elif self.decision == 6 and self.x - SPEED > self.size and self.y + SPEED < HEIGHT_SIZE-self.size: #left-down
-            self.x -= SPEED
-            self.y += SPEED
+            self.x -= SPEED * dt
+            self.y += SPEED * dt
         elif self.decision == 7 and self.x - SPEED > self.size and self.y - SPEED > self.size: #left-up
-            self.x -= SPEED
-            self.y -= SPEED
+            self.x -= SPEED * dt
+            self.y -= SPEED * dt
         else:
             self.move_decision()
 
@@ -185,10 +185,12 @@ class Main:
 # Pygame game loop
 run = True
 simulation = Main()
+previous_frame_time = time.time()
 
 while run:
     clock.tick(FPS)
-
+    dt = time.time() - previous_frame_time
+    previous_frame_time = time.time()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False

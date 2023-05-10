@@ -13,7 +13,7 @@ YEAR = 30 # default = 30
 # ORGANISMS SETTINGS
 SIZE_BY_GENE = 5 # default = 5
 STARTING_COLOR = "white" # default = "white"
-SPEED = 1 # default = 1
+SPEED = 42 # default = 42
 
 # INFO DISPLAY SETTINGS
 enable_info_display = True # default = True
