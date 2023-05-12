@@ -23,3 +23,8 @@ anti_aliasing = True # default = True
 show_FPS = True # default = True
 show_population = True # default = True
 show_time = True # defatult = True
+
+# DEBUG INFO SETTINGS
+debug_font_size = 30 # default = 30
+debug_font_color = "yellow" # default = "yellow"
+debug_background_color = "black" # default = "black"

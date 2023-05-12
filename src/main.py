@@ -3,6 +3,7 @@ import random
 import time
 
 from settings import *
+from debug import debug
 
 # Pygame setup
 pygame.init()
@@ -178,6 +179,8 @@ class Main:
             organism.genetic_abilities()
         self.check_collisions()
         self.check_if_alive()
+
+        #debug("info")
 
         pygame.display.update()
 
