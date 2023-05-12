@@ -189,6 +189,7 @@ class Main:
 run = True
 simulation = Main()
 previous_frame_time = time.time()
+pause = False
 
 while run:
     clock.tick(FPS)
@@ -197,11 +198,15 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                pause = not pause
 
-    simulation.create_organisms()
-    if enable_info_display:
-        simulation.info_display()
-    simulation.update_screen()
+    if not pause:
+        simulation.create_organisms()
+        if enable_info_display:
+            simulation.info_display()
+        simulation.update_screen()
 
     screen.fill(BG_COLOR)
 
