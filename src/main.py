@@ -28,6 +28,7 @@ class Organism:
         self.last_birthday = self.last_cellular_respiration = time.time()
         self.age = 0
         self.alive = True
+        self.possible_genes = ["CR", "RA", "MM"]
 
     def draw(self):
         rect_x = self.x - self.size
@@ -90,7 +91,8 @@ class Organism:
         if self.energy >= len(self.genome) + 1:
             if random.randint(1, 10) >= 5:
                 self.offspring_birth_location()
-                offspring = Organism(self.offspring_x, self.offspring_y, "blue", self.genome)
+                offspring = Organism(self.offspring_x, self.offspring_y, "blue", self.genome[:])
+                offspring.mutation()
                 simulation.spawn_offsprings(offspring)
                 self.energy -= len(self.genome)
             else:
@@ -121,6 +123,13 @@ class Organism:
                 self.offspring_y = self.y + self.size * 3
         else:
             pass
+
+    def mutation(self):
+        chance = random.randint(1, 100)
+        if chance <= MUTATION_CHANCE:
+            new_gene = random.choice(self.possible_genes)
+            if new_gene not in self.genome:
+                self.genome.append(new_gene)
 
     def aging(self):
         if time.time() - self.last_birthday > YEAR:
