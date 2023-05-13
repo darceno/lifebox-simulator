@@ -76,7 +76,7 @@ class Organism:
     def cellular_respiration(self):
         if time.time() - self.last_cellular_respiration > 1:
             energy_consumption = len(self.genome) + 3
-            nutrients_variation = random.randint(7, 13)
+            nutrients_variation = random.randint(5, 15)
             self.nutrients += nutrients_variation - energy_consumption
             self.last_cellular_respiration = time.time()
 
