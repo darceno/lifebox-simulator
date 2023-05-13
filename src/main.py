@@ -89,11 +89,38 @@ class Organism:
     def asexual_reproduction(self):
         if self.energy >= len(self.genome) + 1:
             if random.randint(1, 10) >= 5:
-                offspring = Organism(self.x, self.y, "blue", self.genome)
+                self.offspring_birth_location()
+                offspring = Organism(self.offspring_x, self.offspring_y, "blue", self.genome)
                 simulation.spawn_offsprings(offspring)
                 self.energy -= len(self.genome)
             else:
                 self.energy -= self.energy//2
+
+    def offspring_birth_location(self):
+        self.offspring_x = self.x
+        self.offspring_y = self.y
+        x_direction = random.randint(1, 3)
+        y_direction = random.randint(1, 3)
+        if x_direction == 1:
+            self.offspring_x = self.x + self.size * 3
+            if self.offspring_x >= WIDTH_SIZE - self.size:
+                self.offspring_x = self.x - self.size * 3
+        if x_direction == 2:
+            self.offspring_x = self.x - self.size * 3
+            if self.offspring_x <= self.size:
+                self.offspring_x = self.x + self.size * 3
+        else:
+            pass 
+        if y_direction == 1:
+            self.offspring_y = self.y + self.size * 3
+            if self.offspring_y >= WIDTH_SIZE - self.size:
+                self.offspring_y = self.y - self.size * 3
+        if y_direction == 2:
+            self.offspring_y = self.y - self.size * 3
+            if self.offspring_y <= self.size:
+                self.offspring_y = self.y + self.size * 3
+        else:
+            pass
 
     def aging(self):
         if time.time() - self.last_birthday > YEAR:
