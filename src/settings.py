@@ -11,7 +11,8 @@ STARTING_POPULATION = 10 # default = 10
 YEAR = 30 # default = 30
 
 # ORGANISMS SETTINGS
-SIZE_BY_GENE = 5 # default = 5
+STARTING_SIZE = 7 # default = 7
+SIZE_BY_GENE = 1 # default = 1
 STARTING_COLOR = "white" # default = "white"
 SPEED = 42 # default = 42
 MUTATION_CHANCE = 30

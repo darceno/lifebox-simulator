@@ -22,7 +22,7 @@ class Organism:
         self.rect = pygame.Rect(self.x, self.y, 1, 1)
         self.last_decision = 0
         self.genome = genome
-        self.size = len(self.genome) * SIZE_BY_GENE
+        self.size = STARTING_SIZE + ((len(self.genome) * SIZE_BY_GENE) - 2)
         self.energy = 1
         self.nutrients = 0
         self.last_birthday = self.last_cellular_respiration = time.time()
