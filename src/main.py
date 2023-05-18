@@ -146,6 +146,7 @@ class Organism:
         self.draw()
         self.aging()
         self.energy_conversion()
+        self.deaths()
 
     def genetic_abilities(self):
         if "CR" in self.genome:
