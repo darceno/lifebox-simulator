@@ -14,10 +14,10 @@ clock = pygame.time.Clock()
 
 # Organisms class
 class Organism:
-    def __init__(self, x, y, color, genome):
+    def __init__(self, x, y, genome):
         self.x = x
         self.y = y
-        self.color = color
+        self.color = STARTING_COLOR
         self.decision = None
         self.rect = pygame.Rect(self.x, self.y, 1, 1)
         self.last_decision = 0
@@ -29,6 +29,30 @@ class Organism:
         self.age = 0
         self.alive = True
         self.possible_genes = ["CR", "RA", "MM"]
+
+    def color_change(self):
+        R_genes_all = ("MM",)
+        G_genes_all = ()
+        B_genes_all = ()
+        R_genes = 0
+        G_genes = 0
+        B_genes = 0
+
+        for gene in R_genes_all:
+            if gene in self.genome:
+                R_genes += 1
+        for gene in G_genes_all:
+            if gene in self.genome:
+                G_genes += 1
+        for gene in B_genes_all:
+            if gene in self.genome:
+                B_genes += 1
+
+        R_value = 255 - (51 * R_genes)
+        G_value = 255 - (51 * G_genes)
+        B_value = 255 - (51 * B_genes)
+
+        self.color = (R_value, G_value, B_value)
 
     def draw(self):
         rect_x = self.x - self.size
@@ -91,7 +115,7 @@ class Organism:
         if self.energy >= len(self.genome) + 1:
             if random.randint(1, 10) >= 5:
                 self.offspring_birth_location()
-                offspring = Organism(self.offspring_x, self.offspring_y, "blue", self.genome[:])
+                offspring = Organism(self.offspring_x, self.offspring_y, self.genome[:])
                 offspring.mutation()
                 simulation.spawn_offsprings(offspring)
                 self.energy -= len(self.genome)
@@ -149,6 +173,7 @@ class Organism:
         self.aging()
         self.energy_conversion()
         self.deaths()
+        self.color_change()
 
     def genetic_abilities(self):
         if "CR" in self.genome:
@@ -173,7 +198,7 @@ class Main:
     def create_organisms(self):
         if self.first_generation:
             for i in range(STARTING_POPULATION):
-                organism = Organism(random.randint(20, WIDTH_SIZE-20), random.randint(20, HEIGHT_SIZE-20), STARTING_COLOR, ["CR", "RA"])
+                organism = Organism(random.randint(20, WIDTH_SIZE-20), random.randint(20, HEIGHT_SIZE-20), ["CR", "RA"])
                 self.organisms.append(organism)
             self.first_generation = False
                              
