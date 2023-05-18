@@ -138,6 +138,10 @@ class Organism:
         if self.age == len(self.genome):
             self.alive = False
 
+    def deaths(self):
+        if len(self.genome) == 0:
+            self.alive = False
+
     def universal_abilities(self):
         self.draw()
         self.aging()
