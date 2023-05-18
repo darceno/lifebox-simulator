@@ -135,13 +135,13 @@ class Organism:
         if time.time() - self.last_birthday > YEAR:
             self.age += 1
             self.last_birthday = time.time()
-        if self.age == len(self.genome):
-            self.alive = False
 
     def deaths(self):
         if len(self.genome) == 0:
             self.alive = False
         if self.energy == 0:
+            self.alive = False
+        if self.age == len(self.genome):
             self.alive = False
 
     def universal_abilities(self):
