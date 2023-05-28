@@ -30,7 +30,7 @@ class Simulation(arcade.Window):
 
     def create_organisms(self):
         for i in range(STARTING_POPULATION):
-            organism = Organism("assets/organism_sprite.png", 1)
+            organism = Organism("assets/organism_sprite.png", ORGANISM_SCALING)
             organism.center_x = random.randrange(64, WIDTH_SIZE-64)
             organism.center_y = random.randrange(64, HEIGHT_SIZE-64)
             self.organisms.append(organism)
