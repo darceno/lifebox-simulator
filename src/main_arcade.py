@@ -3,12 +3,10 @@ import random
 
 from settings import *
 
-class Organism(arcade.SpriteCircle):
-    def __init__(self, x, y, size, color, genome):
-        super().__init__(size, color)
-        self.center_x = x
-        self.center_y = y
-        self.genome = genome
+class Organism(arcade.Sprite):
+    def __init__(self, filename, sprite_scaling):
+        super().__init__(filename, sprite_scaling)
+        self.genome = []
         self.possible_genes = ["CR", "RA", "MM"]
 
 class Simulation(arcade.Window):
@@ -32,7 +30,9 @@ class Simulation(arcade.Window):
 
     def create_organisms(self):
         for i in range(STARTING_POPULATION):
-            organism = Organism(random.randrange(WIDTH_SIZE-10), random.randrange(HEIGHT_SIZE-10), 7, "white", ["CR", "RA"])
+            organism = Organism("assets/organism_sprite.png", 1)
+            organism.center_x = random.randrange(64, WIDTH_SIZE-64)
+            organism.center_y = random.randrange(64, HEIGHT_SIZE-64)
             self.organisms.append(organism)
 
 def main():
