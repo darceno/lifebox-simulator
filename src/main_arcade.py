@@ -2,6 +2,14 @@ import arcade
 
 from settings import *
 
+class Organism(arcade.SpriteCircle):
+    def __init__(self, x, y, size, color, genome):
+        super().__init__(size, color)
+        self.center_x = x
+        self.center_y = y
+        self.genome = genome
+        self.possible_genes = ["CR", "RA", "MM"]
+
 class Simulation(arcade.Window):
 
     def __init__(self, width, height, title):
