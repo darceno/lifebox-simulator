@@ -15,7 +15,7 @@ ORGANISM_SCALING = 0.5 # default = 0.5
 STARTING_SIZE = 7 # default = 7
 SIZE_BY_GENE = 1 # default = 1
 STARTING_COLOR = "white" # default = "white"
-SPEED = 42 # default = 42
+SPEED = 1 # default = 1
 MUTATION_CHANCE = 30 # default = 30
 
 # INFO DISPLAY SETTINGS
