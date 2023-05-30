@@ -12,8 +12,9 @@ class Organism(arcade.Sprite):
         self.decision_delay = 0.08
         self.speed = 42
         self.energy = 5
-        self.last_consumption = time.time()
+        self.age = 0
         self.last_birthday = time.time()
+        self.last_consumption = time.time()
         self.last_CR = 0
         self.alive = True
         self.min_reserved_energy = 5
