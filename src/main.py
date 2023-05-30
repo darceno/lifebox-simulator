@@ -13,6 +13,7 @@ class Organism(arcade.Sprite):
         self.speed = 42
         self.energy = 5
         self.last_consumption = time.time()
+        self.last_birthday = time.time()
         self.last_CR = 0
         self.alive = True
         self.min_reserved_energy = 5
@@ -39,8 +40,15 @@ class Organism(arcade.Sprite):
             self.energy -= len(self.genome)
             self.last_consumption = time.time()
 
+    def aging(self):
+        if time.time() - self.last_birthday > YEAR:
+            self.age += 1
+            self.last_birthday = time.time()
+
     def death(self):
         if self.energy <= 0:
+            self.alive = False
+        if self.age >= len(self.genome):
             self.alive = False
         if len(self.genome) == 0:
             self.alive = False
