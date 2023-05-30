@@ -33,7 +33,7 @@ class Organism(arcade.Sprite):
 
     def energy_consumption(self):
         if time.time() - self.last_consumption > 1:
-            self.energy -= len(self.genome) + self.speed
+            self.energy -= len(self.genome)
             self.last_consumption = time.time()
 
     def death(self):
