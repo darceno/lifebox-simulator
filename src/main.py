@@ -59,7 +59,7 @@ class Organism(arcade.Sprite):
 
     def asexual_reproduction(self):
         if self.energy > COST_TO_REPRODUCE + (len(self.genome)*2) + self.min_reserved_energy:
-            if random.random() < REPRODUCTION_SUCESS_RATE:
+            if random.random() <= REPRODUCTION_SUCESS_RATE:
                 offspring = Organism("assets/organism_sprite.png", ORGANISM_SCALING)
                 offspring.center_x = self.center_x + ORGANISM_RADIUS
                 offspring.center_y = self.center_y + ORGANISM_RADIUS
