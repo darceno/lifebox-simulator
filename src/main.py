@@ -74,7 +74,7 @@ class Simulation(arcade.Window):
 
     def on_update(self, delta_time):
         self.organisms.update()
-        self.check_if_alive()
+        self.check_if_dead()
 
     def create_organisms(self):
         for i in range(STARTING_POPULATION):
