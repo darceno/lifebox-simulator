@@ -29,10 +29,15 @@ class Organism(arcade.Sprite):
         self.center_y += self.change_y
 
     def update(self):
-        self.move()
+        self.universal_abilities()
+        self.genetic_abilities()
 
     def universal_abilities(self):
-        pass 
+        pass
+
+    def genetic_abilities(self):
+        if "MM" in self.genome:
+            self.move() 
 
 class Simulation(arcade.Window):
 
