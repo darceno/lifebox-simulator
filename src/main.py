@@ -10,7 +10,7 @@ class Organism(arcade.Sprite):
         self.genome = ["CRc", "RA"]
         self.possible_genes = ["CRa", "CRb", "CRc", "RA", "MM"]
         self.decision_delay = 0.08
-        self.speed = 1
+        self.speed = 42
         self.energy = 5
         self.last_consumption = time.time()
         self.last_CR = 0
@@ -57,8 +57,8 @@ class Organism(arcade.Sprite):
     def move(self):
         self.move_decision()
 
-        self.center_x += self.change_x
-        self.center_y += self.change_y
+        self.center_x += self.change_x * dt
+        self.center_y += self.change_y * dt
 
     def move_decision(self):
         if random.random() < self.decision_delay:
@@ -87,6 +87,8 @@ class Simulation(arcade.Window):
         self.organisms.draw()
 
     def on_update(self, delta_time):
+        global dt
+        dt = delta_time
         self.organisms.update()
         self.check_if_dead()
 
