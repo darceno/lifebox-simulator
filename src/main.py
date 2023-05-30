@@ -63,10 +63,26 @@ class Organism(arcade.Sprite):
                 offspring = Organism("assets/organism_sprite.png", ORGANISM_SCALING)
                 offspring.center_x = self.center_x + ORGANISM_RADIUS
                 offspring.center_y = self.center_y + ORGANISM_RADIUS
+                offspring.mutation()
                 simulation.spawn_offspring(offspring)
                 self.energy -= COST_TO_REPRODUCE + (len(self.genome)*2)
             else:
                 self.energy -= COST_TO_REPRODUCE
+
+    def mutation(self):
+        if random.random() <= MUTATION_CHANCE:
+            mutation_type = random.randint(1, 3)
+            if mutation_type == 1:
+                new_gene = random.choice(self.possible_genes)
+                self.genome.append(new_gene)
+            elif mutation_type == 2:
+                new_gene = random.choice(self.possible_genes)
+                ex_gene = random.choice(self.genome)
+                self.genome.append(new_gene)
+                self.genome.remove(ex_gene)
+            elif mutation_type == 3:
+                ex_gene = random.choice(self.genome)
+                self.genome.remove(ex_gene)
 
     def move(self):
         self.move_decision()

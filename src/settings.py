@@ -19,7 +19,7 @@ STARTING_SIZE = 7 # default = 7
 SIZE_BY_GENE = 1 # default = 1
 STARTING_COLOR = "white" # default = "white"
 SPEED = 1 # default = 1
-MUTATION_CHANCE = 30 # default = 30
+MUTATION_CHANCE = 0.5 # default = 0.5
 
 # INFO DISPLAY SETTINGS
 enable_info_display = True # default = True
