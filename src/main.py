@@ -12,7 +12,7 @@ class Organism(arcade.Sprite):
         self.decision_delay = 0.08
         self.speed = 1
         self.energy = 5
-        self.last_consumption = 0
+        self.last_consumption = time.time()
         self.alive = True
 
     def move_decision(self):
@@ -32,8 +32,6 @@ class Organism(arcade.Sprite):
         self.center_y += self.change_y
 
     def energy_consumption(self):
-        if self.last_consumption == 0:
-            self.last_consumption = time.time()
         if time.time() - self.last_consumption > 1:
             self.energy -= len(self.genome) + self.speed
             self.last_consumption = time.time()
