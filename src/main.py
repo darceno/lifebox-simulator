@@ -13,6 +13,7 @@ class Organism(arcade.Sprite):
         self.speed = 1
         self.energy = 5
         self.last_consumption = time.time()
+        self.last_CR = 0
         self.alive = True
 
     def update(self):
@@ -24,6 +25,8 @@ class Organism(arcade.Sprite):
         self.death()
 
     def genetic_abilities(self):
+        if "CR" in self.genome:
+            self.cellular_respiration()
         if "MM" in self.genome:
             self.move() 
 
@@ -37,6 +40,13 @@ class Organism(arcade.Sprite):
             self.alive = False
         if len(self.genome) == 0:
             self.alive = False
+
+    def cellular_respiration(self):
+        if self.last_CR == 0:
+            self.last_CR = time.time()
+        if time.time() - self.last_CR > 1:
+            self.energy += 6
+            self.last_CR = time.time()
 
     def move(self):
         self.move_decision()
