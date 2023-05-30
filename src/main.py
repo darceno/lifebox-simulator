@@ -15,6 +15,7 @@ class Organism(arcade.Sprite):
         self.last_consumption = time.time()
         self.last_CR = 0
         self.alive = True
+        self.min_reserved_energy = 5
 
     def update(self):
         self.universal_abilities()
@@ -28,6 +29,8 @@ class Organism(arcade.Sprite):
         cellular_respiration_genes = ["CRa", "CRb", "CRc"]
         if any(gene in cellular_respiration_genes for gene in self.genome):
             self.cellular_respiration()
+        if "RA" in self.genome:
+            self.asexual_reproduction()
         if "MM" in self.genome:
             self.move() 
 
@@ -53,6 +56,17 @@ class Organism(arcade.Sprite):
             elif "CRc" in self.genome:
                 self.energy += 5
             self.last_CR = time.time()
+
+    def asexual_reproduction(self):
+        if self.energy > COST_TO_REPRODUCE + (len(self.genome)*2) + self.min_reserved_energy:
+            if random.random() < REPRODUCTION_SUCESS_RATE:
+                offspring = Organism("assets/organism_sprite.png", ORGANISM_SCALING)
+                offspring.center_x = self.center_x + ORGANISM_RADIUS
+                offspring.center_y = self.center_y + ORGANISM_RADIUS
+                simulation.spawn_offspring(offspring)
+                self.energy -= COST_TO_REPRODUCE + (len(self.genome)*2)
+            else:
+                self.energy -= COST_TO_REPRODUCE
 
     def move(self):
         self.move_decision()
@@ -99,12 +113,16 @@ class Simulation(arcade.Window):
             organism.center_y = random.randrange(64, HEIGHT_SIZE-64)
             self.organisms.append(organism)
 
+    def spawn_offspring(self, offspring):
+        self.organisms.append(offspring)
+
     def check_if_dead(self):
         for organism in self.organisms:
             if organism.alive == False:
                 organism.remove_from_sprite_lists()
 
 def main():
+    global simulation
     simulation = Simulation(WIDTH_SIZE, HEIGHT_SIZE, "LifeBox Simulator")
     simulation.setup()
     arcade.run()

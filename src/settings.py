@@ -13,6 +13,8 @@ YEAR = 30 # default = 30
 # ORGANISMS SETTINGS
 ORGANISM_SCALING = 0.5 # default = 0.5
 ORGANISM_RADIUS = 64 * ORGANISM_SCALING # default = 64 * ORGANISM_SCALING
+COST_TO_REPRODUCE = 30 # default = 30
+REPRODUCTION_SUCESS_RATE = 0.7 # default = 0.7
 STARTING_SIZE = 7 # default = 7
 SIZE_BY_GENE = 1 # default = 1
 STARTING_COLOR = "white" # default = "white"
