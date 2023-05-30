@@ -41,6 +41,8 @@ class Organism(arcade.Sprite):
     def death(self):
         if self.energy <= 0:
             self.alive = False
+        if len(self.genome) == 0:
+            self.alive = False
 
     def update(self):
         self.universal_abilities()
