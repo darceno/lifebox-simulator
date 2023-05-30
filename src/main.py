@@ -47,11 +47,11 @@ class Organism(arcade.Sprite):
             self.last_CR = time.time()
         if time.time() - self.last_CR > 1:
             if "CRa" in self.genome:
-                self.energy += 8
+                self.energy += 10
             elif "CRb" in self.genome:
-                self.energy += 6
+                self.energy += 7
             elif "CRc" in self.genome:
-                self.energy += 4
+                self.energy += 5
             self.last_CR = time.time()
 
     def move(self):
