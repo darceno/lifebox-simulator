@@ -7,7 +7,7 @@ from settings import *
 class Organism(arcade.Sprite):
     def __init__(self, filename, sprite_scaling):
         super().__init__(filename, sprite_scaling)
-        self.genome = []
+        self.genome = ["CR", "RA"]
         self.possible_genes = ["CR", "RA", "MM"]
         self.decision_delay = 0.08
         self.speed = 1
