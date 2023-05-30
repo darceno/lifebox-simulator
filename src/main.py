@@ -13,6 +13,7 @@ class Organism(arcade.Sprite):
         self.speed = 1
         self.energy = 5
         self.last_consumption = 0
+        self.alive = True
 
     def move_decision(self):
         if random.random() < self.decision_delay:
@@ -37,12 +38,17 @@ class Organism(arcade.Sprite):
             self.energy -= len(self.genome) + self.speed
             self.last_consumption = time.time()
 
+    def death(self):
+        if self.energy <= 0:
+            self.alive = False
+
     def update(self):
         self.universal_abilities()
         self.genetic_abilities()
 
     def universal_abilities(self):
         self.energy_consumption()
+        self.death()
 
     def genetic_abilities(self):
         if "MM" in self.genome:
@@ -66,6 +72,7 @@ class Simulation(arcade.Window):
 
     def on_update(self, delta_time):
         self.organisms.update()
+        self.check_if_alive()
 
     def create_organisms(self):
         for i in range(STARTING_POPULATION):
@@ -73,6 +80,11 @@ class Simulation(arcade.Window):
             organism.center_x = random.randrange(64, WIDTH_SIZE-64)
             organism.center_y = random.randrange(64, HEIGHT_SIZE-64)
             self.organisms.append(organism)
+
+    def check_if_dead(self):
+        for organism in self.organisms:
+            if organism.alive == False:
+                organism.remove_from_sprite_lists()
 
 def main():
     simulation = Simulation(WIDTH_SIZE, HEIGHT_SIZE, "LifeBox Simulator")
