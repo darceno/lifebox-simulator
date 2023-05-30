@@ -7,8 +7,8 @@ from settings import *
 class Organism(arcade.Sprite):
     def __init__(self, filename, sprite_scaling):
         super().__init__(filename, sprite_scaling)
-        self.genome = ["CR", "RA"]
-        self.possible_genes = ["CR", "RA", "MM"]
+        self.genome = ["CRc", "RA"]
+        self.possible_genes = ["CRa", "CRb", "CRc", "RA", "MM"]
         self.decision_delay = 0.08
         self.speed = 1
         self.energy = 5
@@ -25,7 +25,8 @@ class Organism(arcade.Sprite):
         self.death()
 
     def genetic_abilities(self):
-        if "CR" in self.genome:
+        cellular_respiration_genes = ["CRa", "CRb", "CRc"]
+        if any(gene in cellular_respiration_genes for gene in self.genome):
             self.cellular_respiration()
         if "MM" in self.genome:
             self.move() 
@@ -45,7 +46,12 @@ class Organism(arcade.Sprite):
         if self.last_CR == 0:
             self.last_CR = time.time()
         if time.time() - self.last_CR > 1:
-            self.energy += 6
+            if "CRa" in self.genome:
+                self.energy += 8
+            elif "CRb" in self.genome:
+                self.energy += 6
+            elif "CRc" in self.genome:
+                self.energy += 4
             self.last_CR = time.time()
 
     def move(self):
