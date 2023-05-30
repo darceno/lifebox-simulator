@@ -61,13 +61,18 @@ class Organism(arcade.Sprite):
         if self.energy > COST_TO_REPRODUCE + (len(self.genome)*2) + self.min_reserved_energy:
             if random.random() <= REPRODUCTION_SUCESS_RATE:
                 offspring = Organism("assets/organism_sprite.png", ORGANISM_SCALING)
-                offspring.center_x = self.center_x + ORGANISM_RADIUS
-                offspring.center_y = self.center_y + ORGANISM_RADIUS
+                offspring.center_x = self.center_x 
+                offspring.center_y = self.center_y
+                offspring.birth_location()
                 offspring.mutation()
                 simulation.spawn_offspring(offspring)
                 self.energy -= COST_TO_REPRODUCE + (len(self.genome)*2)
             else:
                 self.energy -= COST_TO_REPRODUCE
+
+    def birth_location(self):
+        self.center_x = random.choice([self.center_x, self.center_x - ORGANISM_RADIUS, self.center_x + ORGANISM_RADIUS])
+        self.center_y = random.choice([self.center_y, self.center_y - ORGANISM_RADIUS, self.center_y + ORGANISM_RADIUS])
 
     def mutation(self):
         if random.random() <= MUTATION_CHANCE:
