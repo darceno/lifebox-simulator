@@ -11,6 +11,8 @@ class Organism(arcade.Sprite):
         self.possible_genes = ["CR", "RA", "MM"]
         self.decision_delay = 0.08
         self.speed = 1
+        self.energy = 5
+        self.last_consumption = 0
 
     def move_decision(self):
         if random.random() < self.decision_delay:
@@ -28,12 +30,19 @@ class Organism(arcade.Sprite):
         self.center_x += self.change_x
         self.center_y += self.change_y
 
+    def energy_consumption(self):
+        if self.last_consumption == 0:
+            self.last_consumption = time.time()
+        if time.time() - self.last_consumption > 1:
+            self.energy -= len(self.genome) + self.speed
+            self.last_consumption = time.time()
+
     def update(self):
         self.universal_abilities()
         self.genetic_abilities()
 
     def universal_abilities(self):
-        pass
+        self.energy_consumption()
 
     def genetic_abilities(self):
         if "MM" in self.genome:
