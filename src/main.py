@@ -29,7 +29,10 @@ class Organism(arcade.Sprite):
         self.center_y += self.change_y
 
     def update(self):
-        self.move() 
+        self.move()
+
+    def universal_abilities(self):
+        pass 
 
 class Simulation(arcade.Window):
 
