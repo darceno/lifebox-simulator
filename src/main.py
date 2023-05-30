@@ -15,21 +15,17 @@ class Organism(arcade.Sprite):
         self.last_consumption = time.time()
         self.alive = True
 
-    def move_decision(self):
-        if random.random() < self.decision_delay:
-            self.change_x = random.uniform(-self.speed, self.speed)
-            self.change_y = random.uniform(-self.speed, self.speed)
+    def update(self):
+        self.universal_abilities()
+        self.genetic_abilities()
 
-        if self.center_x < ORGANISM_RADIUS or self.center_x > WIDTH_SIZE - ORGANISM_RADIUS:
-            self.change_x *= -1
-        if self.center_y < ORGANISM_RADIUS or self.center_y > HEIGHT_SIZE - ORGANISM_RADIUS:
-            self.change_y *= -1
+    def universal_abilities(self):
+        self.energy_consumption()
+        self.death()
 
-    def move(self):
-        self.move_decision()
-
-        self.center_x += self.change_x
-        self.center_y += self.change_y
+    def genetic_abilities(self):
+        if "MM" in self.genome:
+            self.move() 
 
     def energy_consumption(self):
         if time.time() - self.last_consumption > 1:
@@ -42,17 +38,21 @@ class Organism(arcade.Sprite):
         if len(self.genome) == 0:
             self.alive = False
 
-    def update(self):
-        self.universal_abilities()
-        self.genetic_abilities()
+    def move(self):
+        self.move_decision()
 
-    def universal_abilities(self):
-        self.energy_consumption()
-        self.death()
+        self.center_x += self.change_x
+        self.center_y += self.change_y
 
-    def genetic_abilities(self):
-        if "MM" in self.genome:
-            self.move() 
+    def move_decision(self):
+        if random.random() < self.decision_delay:
+            self.change_x = random.uniform(-self.speed, self.speed)
+            self.change_y = random.uniform(-self.speed, self.speed)
+
+        if self.center_x < ORGANISM_RADIUS or self.center_x > WIDTH_SIZE - ORGANISM_RADIUS:
+            self.change_x *= -1
+        if self.center_y < ORGANISM_RADIUS or self.center_y > HEIGHT_SIZE - ORGANISM_RADIUS:
+            self.change_y *= -1
 
 class Simulation(arcade.Window):
 
