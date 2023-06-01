@@ -25,7 +25,11 @@ class Organism(arcade.Sprite):
         self.genetic_abilities()
 
     def print_info(self):
-        print(f"Genome: " + ", ".join(sorted(self.genome)) + f"\nAge: {self.age} years \nEnergy: {self.energy} points")
+        print("-----------------------")
+        print(f"Genome: " + ", ".join(sorted(self.genome)) +
+            f"\nAge: {self.age} years" +
+            f"\nEnergy: {self.energy} points")
+        print("-----------------------")
 
     def universal_abilities(self):
         self.energy_consumption()
