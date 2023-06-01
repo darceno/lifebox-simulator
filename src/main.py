@@ -154,7 +154,7 @@ class Simulation(arcade.Window):
         super().__init__(width, height, title, center_window=True)
         self.organisms = None
 
-        arcade.set_background_color((21, 36, 36))
+        arcade.set_background_color(BG_COLOR)
 
     def setup(self):
         self.organisms = arcade.SpriteList()
