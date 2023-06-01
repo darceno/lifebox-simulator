@@ -24,6 +24,9 @@ class Organism(arcade.Sprite):
         self.universal_abilities()
         self.genetic_abilities()
 
+    def print_info(self):
+        print(f"Genome: {sorted(self.genome)} \nAge: {self.age} \nEnergy: {self.energy}")
+
     def universal_abilities(self):
         self.energy_consumption()
         self.death()
@@ -166,7 +169,7 @@ class Simulation(arcade.Window):
     def on_mouse_press(self, x, y: int, button, modifiers):
         for organism in self.organisms:
             if organism.collides_with_point((x, y)):
-                print(sorted(organism.genome))
+                organism.print_info()
 
     def create_organisms(self):
         for i in range(STARTING_POPULATION):
