@@ -3,6 +3,7 @@ import random
 import time
 
 from settings import *
+from gene_colors import gene_colors
 
 class Organism(arcade.Sprite):
     def __init__(self, filename, sprite_scaling):
@@ -26,6 +27,7 @@ class Organism(arcade.Sprite):
     def universal_abilities(self):
         self.energy_consumption()
         self.death()
+        self.color_change()
 
     def genetic_abilities(self):
         cellular_respiration_genes = ["CRa", "CRb", "CRc"]
@@ -53,6 +55,31 @@ class Organism(arcade.Sprite):
             self.alive = False
         if len(self.genome) == 0:
             self.alive = False
+
+    def color_change(self):
+        red_component = []
+        green_component = []
+        blue_component = []
+
+        for gene in self.genome:
+            if gene in gene_colors:
+                color = gene_colors[gene]
+                red_component.append(color[0])
+                green_component.append(color[1])
+                blue_component.append(color[2])
+
+        if not red_component:
+            red_component = [255]
+        if not green_component:
+            green_component = [255]
+        if not blue_component:
+            blue_component = [255]
+
+        red_value = sum(red_component) / len(red_component)
+        green_value = sum(green_component) / len(green_component)
+        blue_value = sum(blue_component) / len(blue_component)
+
+        self.color = (red_value, green_value, blue_value)
 
     def cellular_respiration(self):
         if self.last_CR == 0:
