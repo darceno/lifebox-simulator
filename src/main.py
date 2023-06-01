@@ -106,6 +106,7 @@ class Organism(arcade.Sprite):
                 offspring = Organism("assets/organism_sprite.png", ORGANISM_SCALING)
                 offspring.center_x = self.center_x 
                 offspring.center_y = self.center_y
+                offspring.genome = self.genome[:]
                 offspring.birth_location()
                 offspring.mutation()
                 simulation.spawn_offspring(offspring)
