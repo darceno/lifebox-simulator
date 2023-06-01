@@ -168,6 +168,8 @@ class Simulation(arcade.Window):
             organism = Organism("assets/organism_sprite.png", ORGANISM_SCALING)
             organism.center_x = random.randrange(64, WIDTH_SIZE-64)
             organism.center_y = random.randrange(64, HEIGHT_SIZE-64)
+            if START_WITH_MUTATION:
+                organism.mutation()
             self.organisms.append(organism)
 
     def spawn_offspring(self, offspring):
