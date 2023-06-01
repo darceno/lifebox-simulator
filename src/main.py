@@ -163,6 +163,11 @@ class Simulation(arcade.Window):
         self.organisms.update()
         self.check_if_dead()
 
+    def on_mouse_press(self, x, y: int, button, modifiers):
+        for organism in self.organisms:
+            if organism.collides_with_point((x, y)):
+                print(sorted(organism.genome))
+
     def create_organisms(self):
         for i in range(STARTING_POPULATION):
             organism = Organism("assets/organism_sprite.png", ORGANISM_SCALING)
