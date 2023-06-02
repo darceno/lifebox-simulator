@@ -29,7 +29,9 @@ class Organism(arcade.Sprite):
         print("-----------------------")
         print(f"Genome: " + ", ".join(sorted(self.genome)) +
             f"\nAge: {self.age} years" +
-            f"\nEnergy: {self.energy} points")
+            f"\nEnergy: {self.energy} points" +
+            f"\nSpeed: {self.speed}" +
+            f"\nDecision delay: {self.decision_delay}")
         print("-----------------------")
 
     def universal_abilities(self):
