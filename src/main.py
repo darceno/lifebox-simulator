@@ -9,7 +9,7 @@ class Organism(arcade.Sprite):
     def __init__(self, filename, sprite_scaling):
         super().__init__(filename, sprite_scaling)
         self.genome = ["CRc", "RA"]
-        self.possible_genes = ["CRa", "CRb", "CRc", "RA", "MM"]
+        self.possible_genes = ["CRa", "CRb", "CRc", "RA", "MM", "SPa", "SPb"]
         self.decision_delay = 0.08
         self.speed = 42
         self.energy = 5
@@ -23,6 +23,7 @@ class Organism(arcade.Sprite):
     def update(self):
         self.universal_abilities()
         self.genetic_abilities()
+        self.genetic_attributes()
 
     def print_info(self):
         print("-----------------------")
@@ -44,6 +45,14 @@ class Organism(arcade.Sprite):
             self.asexual_reproduction()
         if "MM" in self.genome:
             self.move() 
+
+    def genetic_attributes(self):
+        if "SPa" in self.genome:
+            self.speed = 42 + (self.genome.count("SPa") * 20)
+            if self.speed > 102: self.speed = 102
+        if "SPb" in self.genome:
+            self.speed = 42 - (self.genome.count("SPa") * 20)
+            if self.speed < 2: self.speed = 2
 
     def energy_consumption(self):
         if time.time() - self.last_consumption > 1:
