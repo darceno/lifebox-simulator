@@ -53,14 +53,14 @@ class Organism(arcade.Sprite):
             self.speed = 42 + (self.genome.count("SPa") * 20)
             if self.speed > 102: self.speed = 102
         if "SPb" in self.genome:
-            self.speed = 42 - (self.genome.count("SPa") * 20)
+            self.speed = 42 - (self.genome.count("SPb") * 20)
             if self.speed < 2: self.speed = 2
 
         if "DDa" in self.genome:
             self.decision_delay = 0.08 - (self.genome.count("DDa") * 0.02)
             if self.decision_delay < 0.01: self.decision_delay = 0.01
         if "DDb" in self.genome:
-            self.decision_delay = 0.08 + (self.genome.count("DDa") * 0.02)
+            self.decision_delay = 0.08 + (self.genome.count("DDb") * 0.02)
             if self.decision_delay > 0.2: self.decision_delay = 0.2
 
     def energy_consumption(self):
