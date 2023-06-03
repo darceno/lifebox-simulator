@@ -6,6 +6,7 @@ from settings import *
 from gene_colors import gene_colors
 
 class Organism(arcade.Sprite):
+
     def __init__(self, filename, sprite_scaling):
         super().__init__(filename, sprite_scaling)
         self.genome = ["CRc", "RA"]
@@ -43,6 +44,7 @@ class Organism(arcade.Sprite):
         cellular_respiration_genes = ["CRa", "CRb", "CRc"]
         if any(gene in cellular_respiration_genes for gene in self.genome):
             self.cellular_respiration()
+
         if "RA" in self.genome:
             self.asexual_reproduction()
         if "MM" in self.genome:
@@ -153,7 +155,6 @@ class Organism(arcade.Sprite):
 
     def move(self):
         self.move_decision()
-
         self.center_x += self.change_x * dt
         self.center_y += self.change_y * dt
 
@@ -166,6 +167,7 @@ class Organism(arcade.Sprite):
             self.change_x *= -1
         if self.center_y < ORGANISM_RADIUS or self.center_y > HEIGHT_SIZE - ORGANISM_RADIUS:
             self.change_y *= -1
+
 
 class Simulation(arcade.Window):
 
@@ -210,13 +212,13 @@ class Simulation(arcade.Window):
         for organism in self.organisms:
             if organism.alive == False:
                 organism.remove_from_sprite_lists()
+                
 
 def main():
     global simulation
     simulation = Simulation(WIDTH_SIZE, HEIGHT_SIZE, "LifeBox Simulator")
     simulation.setup()
     arcade.run()
-
 
 if __name__ == "__main__":
     main()
