@@ -20,6 +20,7 @@ class Organism(arcade.Sprite):
         self.last_CR = 0
         self.alive = True
         self.min_reserved_energy = 5
+        self.name = None
 
     def update(self):
         self.universal_abilities()
@@ -28,7 +29,8 @@ class Organism(arcade.Sprite):
 
     def print_info(self):
         print("-----------------------")
-        print(f"Genome: " + ", ".join(sorted(self.genome)) +
+        print(f"Name: {self.name}" +
+            f"\nGenome: " + ", ".join(sorted(self.genome)) +
             f"\nAge: {self.age} years" +
             f"\nEnergy: {self.energy} points" +
             f"\nSpeed: {self.speed}" +
@@ -121,15 +123,19 @@ class Organism(arcade.Sprite):
             self.last_CR = time.time()
 
     def asexual_reproduction(self):
+        global organism_name
+
         if self.energy > COST_TO_REPRODUCE + (len(self.genome)*2) + self.min_reserved_energy:
             if random.random() <= REPRODUCTION_SUCESS_RATE:
                 offspring = Organism("assets/organism_sprite.png", ORGANISM_SCALING)
                 offspring.center_x = self.center_x 
                 offspring.center_y = self.center_y
                 offspring.genome = self.genome[:]
+                offspring.name = organism_name
                 offspring.birth_location()
                 offspring.mutation()
                 simulation.spawn_offspring(offspring)
+                organism_name += 1
                 self.energy -= COST_TO_REPRODUCE + (len(self.genome)*2)
             else:
                 self.energy -= COST_TO_REPRODUCE
@@ -197,13 +203,16 @@ class Simulation(arcade.Window):
                 organism.print_info()
 
     def create_organisms(self):
+        global organism_name
         for i in range(STARTING_POPULATION):
             organism = Organism("assets/organism_sprite.png", ORGANISM_SCALING)
             organism.center_x = random.randrange(64, WIDTH_SIZE-64)
             organism.center_y = random.randrange(64, HEIGHT_SIZE-64)
+            organism.name = organism_name
             if START_WITH_MUTATION:
                 organism.mutation()
             self.organisms.append(organism)
+            organism_name += 1
 
     def spawn_offspring(self, offspring):
         self.organisms.append(offspring)
@@ -216,6 +225,8 @@ class Simulation(arcade.Window):
 
 def main():
     global simulation
+    global organism_name
+    organism_name = 1
     simulation = Simulation(WIDTH_SIZE, HEIGHT_SIZE, "LifeBox Simulator")
     simulation.setup()
     arcade.run()
