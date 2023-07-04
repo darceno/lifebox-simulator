@@ -2,6 +2,7 @@ import arcade
 import random
 import time
 
+import event_logging
 from settings import *
 from gene_colors import gene_colors
 
@@ -76,14 +77,20 @@ class Organism(arcade.Sprite):
         if time.time() - self.last_birthday > YEAR:
             self.age += 1
             self.last_birthday = time.time()
+            event_logging.birthday(self.name, self.age)
 
     def death(self):
         if self.energy <= 0:
             self.alive = False
+            event_logging.death_energy(self.name)
+            
         if self.age >= len(self.genome):
             self.alive = False
+            event_logging.death_age(self.name)
+
         if len(self.genome) == 0:
             self.alive = False
+            event_logging.death_gene_depletion(self.name)
 
     def color_change(self):
         red_component = []
@@ -132,11 +139,16 @@ class Organism(arcade.Sprite):
                 offspring.center_y = self.center_y
                 offspring.genome = self.genome[:]
                 offspring.name = organism_name
+
+                event_logging.asexual_reproduction(self.name, offspring.name) # event log
+                
                 offspring.birth_location()
                 offspring.mutation()
                 simulation.spawn_offspring(offspring)
                 organism_name += 1
                 self.energy -= COST_TO_REPRODUCE + (len(self.genome)*2)
+
+
             else:
                 self.energy -= COST_TO_REPRODUCE
 
@@ -158,6 +170,11 @@ class Organism(arcade.Sprite):
                 ex_gene = random.choice(self.genome)
                 self.genome.append(new_gene)
                 self.genome.remove(ex_gene)
+
+            event_logging.mutation_occurred(self.name) # event log
+
+        else:
+            event_logging.mutation_not_occurred(self.name) # event log
 
     def move(self):
         self.move_decision()
