@@ -9,23 +9,18 @@ class Organism(arcade.Sprite):
 
     def __init__(self, filename, sprite_scaling):
         super().__init__(filename, sprite_scaling)
+        self.name = None
         self.genome = ["CRc", "RA"]
         self.possible_genes = ["CRa", "CRb", "CRc", "RA", "MM", "SPa", "SPb", "DDa", "DDb"]
-        self.decision_delay = 0.08
-        self.speed = 42
-        self.energy = 5
+        self.alive = True
         self.age = 0
+        self.speed = 42
+        self.decision_delay = 0.08
+        self.min_reserved_energy = 5
+        self.energy = 5
         self.last_birthday = time.time()
         self.last_consumption = time.time()
         self.last_CR = 0
-        self.alive = True
-        self.min_reserved_energy = 5
-        self.name = None
-
-    def update(self):
-        self.universal_abilities()
-        self.genetic_abilities()
-        self.genetic_attributes()
 
     def print_info(self):
         print("-----------------------")
@@ -36,6 +31,11 @@ class Organism(arcade.Sprite):
             f"\nSpeed: {self.speed}" +
             f"\nDecision delay: {self.decision_delay}")
         print("-----------------------")
+
+    def update(self):
+        self.universal_abilities()
+        self.genetic_abilities()
+        self.genetic_attributes()
 
     def universal_abilities(self):
         self.energy_consumption()
@@ -147,16 +147,16 @@ class Organism(arcade.Sprite):
     def mutation(self):
         if random.random() <= MUTATION_CHANCE:
             mutation_type = random.randint(1, 3)
-            if mutation_type == 1:
+            if mutation_type == 1: # addition of a gene
                 new_gene = random.choice(self.possible_genes)
                 self.genome.append(new_gene)
-            elif mutation_type == 2:
-                new_gene = random.choice(self.possible_genes)
+            elif mutation_type == 2: # subtraction of a gene
                 ex_gene = random.choice(self.genome)
-                self.genome.append(new_gene)
                 self.genome.remove(ex_gene)
-            elif mutation_type == 3:
+            elif mutation_type == 3: # replacement of a gene
+                new_gene = random.choice(self.possible_genes)
                 ex_gene = random.choice(self.genome)
+                self.genome.append(new_gene)
                 self.genome.remove(ex_gene)
 
     def move(self):
