@@ -231,10 +231,21 @@ class Simulation(arcade.Window):
         self.check_if_dead()
         eco.energy_updade()
 
+    def print_info_simulation(self):
+        print("-----------------------")
+        print(f"Population: {len(self.organisms)}" +
+            f"\nEnergy avaliable: {eco.energy_avaliable}")
+        print("-----------------------")
+
+
     def on_mouse_press(self, x, y: int, button, modifiers):
         for organism in self.organisms:
             if organism.collides_with_point((x, y)):
                 organism.print_info()
+
+    def on_key_press(self, key, modifiers):
+        if key == arcade.key.I:
+            self.print_info_simulation()
 
     def create_organisms(self):
         global organism_name
