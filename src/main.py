@@ -6,6 +6,16 @@ import event_logging
 from settings import *
 from gene_colors import gene_colors
 
+class Ecosystem():
+    def __init__(self):        
+        self.last_energy_update = 0
+        self.energy_avaliable = 100
+
+    def energy_updade(self):
+        if time.time() - self.last_energy_update > 1:
+            self.energy_avaliable += ENERGY_PRODUCTION
+            self.last_energy_update = time.time()
+
 class Organism(arcade.Sprite):
 
     def __init__(self, filename, sprite_scaling):
@@ -121,12 +131,15 @@ class Organism(arcade.Sprite):
         if self.last_CR == 0:
             self.last_CR = time.time()
         if time.time() - self.last_CR > 1:
-            if "CRa" in self.genome:
+            if "CRa" in self.genome and eco.energy_avaliable > 8:
                 self.energy += 8
-            elif "CRb" in self.genome:
+                eco.energy_avaliable -= 8
+            elif "CRb" in self.genome and eco.energy_avaliable > 6:
                 self.energy += 6
-            elif "CRc" in self.genome:
+                eco.energy_avaliable -= 6
+            elif "CRc" in self.genome and eco.energy_avaliable > 4:
                 self.energy += 4
+                eco.energy_avaliable -= 4
             self.last_CR = time.time()
 
     def asexual_reproduction(self):
@@ -201,8 +214,10 @@ class Simulation(arcade.Window):
         arcade.set_background_color(BG_COLOR)
 
     def setup(self):
+        global eco
         self.organisms = arcade.SpriteList()
         self.create_organisms()
+        eco = Ecosystem()
 
     def on_draw(self):
         self.clear()
@@ -210,9 +225,11 @@ class Simulation(arcade.Window):
 
     def on_update(self, delta_time):
         global dt
+        global eco
         dt = delta_time
         self.organisms.update()
         self.check_if_dead()
+        eco.energy_updade()
 
     def on_mouse_press(self, x, y: int, button, modifiers):
         for organism in self.organisms:
