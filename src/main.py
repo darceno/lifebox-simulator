@@ -210,6 +210,7 @@ class Simulation(arcade.Window):
     def __init__(self, width, height, title):
         super().__init__(width, height, title, center_window=True)
         self.organisms = None
+        self.start_time = time.time()
 
         arcade.set_background_color(BG_COLOR)
 
@@ -227,6 +228,7 @@ class Simulation(arcade.Window):
         global dt
         global eco
         dt = delta_time
+        self.simulation_time = time.time() - self.start_time
         self.organisms.update()
         self.check_if_dead()
         eco.energy_updade()
@@ -234,7 +236,8 @@ class Simulation(arcade.Window):
     def print_info_simulation(self):
         print("-----------------------")
         print(f"Population: {len(self.organisms)}" +
-            f"\nEnergy avaliable: {eco.energy_avaliable}")
+            f"\nEnergy avaliable: {eco.energy_avaliable}" +
+            f"\nSimulation time: {round(self.simulation_time)} seconds")
         print("-----------------------")
 
 
