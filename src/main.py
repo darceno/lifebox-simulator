@@ -52,6 +52,7 @@ class Organism(arcade.Sprite):
         self.energy_consumption()
         self.death()
         self.color_change()
+        self.aging()
 
     def genetic_abilities(self):
         cellular_respiration_genes = ["CRa", "CRb", "CRc"]
