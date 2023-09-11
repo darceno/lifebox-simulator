@@ -21,7 +21,7 @@ class Organism(arcade.Sprite):
     def __init__(self, filename, sprite_scaling):
         super().__init__(filename, sprite_scaling)
         self.name = None
-        self.genome = ["CRc", "RA"]
+        self.genome = ["CRc", "RA", "MM"]
         self.possible_genes = ["CRa", "CRb", "CRc", "RA", "MM", "SPa", "SPb", "DDa", "DDb"]
         self.alive = True
         self.age = 0
@@ -80,12 +80,12 @@ class Organism(arcade.Sprite):
             if self.decision_delay > 0.2: self.decision_delay = 0.2
 
     def energy_consumption(self):
-        if time.time() - self.last_consumption > 1:
+        if time.time() - self.last_consumption > 1 / simulation_speed:
             self.energy -= len(self.genome)
             self.last_consumption = time.time()
 
     def aging(self):
-        if time.time() - self.last_birthday > YEAR:
+        if time.time() - self.last_birthday > YEAR / simulation_speed:
             self.age += 1
             self.last_birthday = time.time()
             event_logging.birthday(self.name, self.age)
@@ -131,7 +131,7 @@ class Organism(arcade.Sprite):
     def cellular_respiration(self):
         if self.last_CR == 0:
             self.last_CR = time.time()
-        if time.time() - self.last_CR > 1:
+        if time.time() - self.last_CR > 1 / simulation_speed:
             if "CRa" in self.genome and eco.energy_avaliable > 8:
                 self.energy += 8
                 eco.energy_avaliable -= 8
@@ -192,11 +192,11 @@ class Organism(arcade.Sprite):
 
     def move(self):
         self.move_decision()
-        self.center_x += self.change_x * dt
-        self.center_y += self.change_y * dt
+        self.center_x += self.change_x * dt * simulation_speed
+        self.center_y += self.change_y * dt * simulation_speed
 
     def move_decision(self):
-        if random.random() < self.decision_delay:
+        if random.random() < self.decision_delay * simulation_speed:
             self.change_x = random.uniform(-self.speed, self.speed)
             self.change_y = random.uniform(-self.speed, self.speed)
 
@@ -238,6 +238,7 @@ class Simulation(arcade.Window):
         print("-----------------------")
         print(f"Population: {len(self.organisms)}" +
             f"\nEnergy avaliable: {eco.energy_avaliable}" +
+            f"\nSimulation speed: {simulation_speed}x" +
             f"\nSimulation time: {round(self.simulation_time)} seconds")
         print("-----------------------")
 
@@ -248,8 +249,30 @@ class Simulation(arcade.Window):
                 organism.print_info()
 
     def on_key_press(self, key, modifiers):
+        global simulation_speed
         if key == arcade.key.I:
             self.print_info_simulation()
+
+        if key == arcade.key.RIGHT:
+            if simulation_speed >= 1:
+                simulation_speed += 1
+            elif simulation_speed == 0.5:
+                simulation_speed = 1
+            elif simulation_speed == 0.25:
+                simulation_speed = 0.5
+            print(f"Simulation speed updated to {simulation_speed}x")
+        if key == arcade.key.LEFT:
+            if simulation_speed >= 2:
+                simulation_speed -= 1
+                print(f"Simulation speed updated to {simulation_speed}x")
+            elif simulation_speed == 1:
+                simulation_speed = 0.5
+                print(f"Simulation speed updated to {simulation_speed}x")
+            elif simulation_speed == 0.5:
+                simulation_speed = 0.25
+                print(f"Simulation speed updated to {simulation_speed}x")
+            else:
+                print(f"Simulation speed is at the minimum of {simulation_speed}x")
 
     def create_organisms(self):
         global organism_name
@@ -275,7 +298,9 @@ class Simulation(arcade.Window):
 def main():
     global simulation
     global organism_name
+    global simulation_speed
     organism_name = 1
+    simulation_speed = 1
     simulation = Simulation(WIDTH_SIZE, HEIGHT_SIZE, "LifeBox Simulator")
     simulation.setup()
     arcade.run()
