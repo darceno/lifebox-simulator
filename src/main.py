@@ -97,7 +97,7 @@ class Organism(arcade.Sprite):
             
         if self.age >= len(self.genome):
             self.alive = False
-            event_logging.death_age(self.name)
+            event_logging.death_age(self.name, self.age)
 
         if len(self.genome) == 0:
             self.alive = False
