@@ -12,7 +12,7 @@ class Organism(arcade.Sprite):
     def __init__(self, filename, sprite_scaling):
         super().__init__(filename, sprite_scaling)
         self.name = None
-        self.genome = ["CRc", "RA", "MM"]
+        self.genome = ["CRc", "RA"]
         self.possible_genes = ["CRa", "CRb", "CRc", "RA", "MM", "SPa", "SPb", "DDa", "DDb"]
         self.alive = True
         self.age = 0
