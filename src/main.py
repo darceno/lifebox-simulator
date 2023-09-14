@@ -3,18 +3,9 @@ import random
 import time
 
 import event_logging
+from ecosystem import *
 from settings import *
 from gene_colors import gene_colors
-
-class Ecosystem():
-    def __init__(self):        
-        self.last_energy_update = 0
-        self.energy_avaliable = 100
-
-    def energy_updade(self):
-        if time.time() - self.last_energy_update > 1:
-            self.energy_avaliable += ENERGY_PRODUCTION
-            self.last_energy_update = time.time()
 
 class Organism(arcade.Sprite):
 
