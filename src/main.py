@@ -3,6 +3,7 @@ import random
 import time
 
 import event_logging
+import panels
 from ecosystem import *
 from settings import *
 from gene_colors import gene_colors
@@ -219,10 +220,7 @@ class Simulation(arcade.Window):
         self.organisms.draw()
 
         if self.show_panel:
-            self.time_line.draw()
-            self.speed_line.draw()
-            self.energy_line.draw()
-            self.population_line.draw()
+            panels.draw_information_panel()
 
     def on_update(self, delta_time):
         global dt
@@ -232,27 +230,7 @@ class Simulation(arcade.Window):
         self.organisms.update()
         self.check_if_dead()
         eco.energy_updade()
-        self.information_panel()
-
-    def information_panel(self):
-        last_line_Y = 20
-        start_x = 10
-        start_y = last_line_Y
-
-        time_info = (f"Simulation time: {round(self.simulation_time)} seconds")
-        self.time_line = arcade.Text(time_info, start_x, start_y, arcade.color.WHITE, FONT_SIZE )
-
-        start_y = last_line_Y + LINE_HEIGHT
-        speed_info = (f"Simulation speed: {simulation_speed}x")
-        self.speed_line = arcade.Text(speed_info, start_x, start_y, arcade.color.WHITE, FONT_SIZE)
-
-        start_y = last_line_Y + LINE_HEIGHT * 2
-        energy_info = (f"Energy avaliable: {eco.energy_avaliable}")
-        self.energy_line = arcade.Text(energy_info, start_x, start_y, arcade.color.WHITE, FONT_SIZE)
-        
-        start_y = last_line_Y + LINE_HEIGHT * 3
-        population_info = (f"Population: {len(self.organisms)}")
-        self.population_line = arcade.Text(population_info, start_x, start_y, arcade.color.WHITE, FONT_SIZE)
+        panels.information_panel(self.simulation_time, simulation_speed, eco.energy_avaliable, self.organisms)
 
     def print_info_simulation(self):
         print("-----------------------")
