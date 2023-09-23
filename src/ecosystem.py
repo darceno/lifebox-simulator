@@ -12,4 +12,3 @@ class Ecosystem():
         if time.time() - self.last_energy_update > 1:
             self.energy_avaliable += ENERGY_PRODUCTION
             self.last_energy_update = time.time()
-            print("oi")
